@@ -7,9 +7,9 @@ import Link from "next/link";
 function page() {
   return (
     <div className="w-full min-h-screen bg-[#131619]">
-      <div className="flex justify-between gap-2">
+      <div className="flex flex-col lg:flex-row justify-between gap-2">
         {/* Login form */}
-        <div className="w-1/2 pl-10 py-10 flex flex-col justify-between">
+        <div className="lg:w-1/2  p-5 lg:pl-10 lg:py-10 flex flex-col justify-between">
           <Link href={"/"}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,7 @@ function page() {
         </div>
 
         {/* image */}
-        <div className="w-1/2">
+        <div className="lg:w-1/2 hidden lg:block">
           <Image
             className="max-w-full ml-auto max-h-screen object-cover rounded-l-3xl"
             src={Banner}

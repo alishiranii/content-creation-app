@@ -7,7 +7,7 @@ import Link from "next/link";
 
 function LoginForm() {
   return (
-    <div className="flex h-full flex-col px-20 justify-center">
+    <div className="flex h-full flex-col lg:px-20 py-14 lg:py-0 mx-auto justify-center">
       <div className="flex mb-12 flex-col gap-5">
         <h1 className="text-white text-5xl">
           Let&apos;s get <span className="gr-text">creative!</span>
@@ -37,10 +37,10 @@ function LoginForm() {
       <div className="divider divider-neutral py-5">OR</div>
       <div className="flex gap-10 justify-between items-center">
         <button className="w-full flex items-center justify-center gap-3 font-semibold p-4 rounded-lg bg-[#1A1D21] text-gray-400 hover:bg-[#1A1D21] border-[#1A1D21]">
-          <FcGoogle size={25} /> Google Account
+          <FcGoogle size={25} /> Google
         </button>
         <button className="w-full flex items-center justify-center gap-3 font-semibold p-4 rounded-lg bg-[#1A1D21] text-gray-400 hover:bg-[#1A1D21] border-[#1A1D21]">
-         <BsGithub size={25}/> Github Account
+         <BsGithub size={25}/> Github
         </button>
       </div>
     </div>
