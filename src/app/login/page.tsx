@@ -10,7 +10,7 @@ function page() {
       <div className="flex flex-col lg:flex-row justify-between gap-2">
         {/* Login form */}
         <div className="lg:w-1/2  p-5 lg:pl-10 lg:py-10 flex flex-col justify-between">
-          <Link href={"/"}>
+          <Link href={"/"} className="w-fit">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="34"
