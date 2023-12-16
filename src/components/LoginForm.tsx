@@ -8,7 +8,11 @@ import Link from "next/link";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createClient } from "@supabase/supabase-js";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createBrowserClient } from "@supabase/ssr";
+// import { supabase } from "@/lib";
+
+
 
 const LoginSchema = z.object({
   email: z.string().email({ message: "Invalid email" }),
@@ -17,7 +21,6 @@ const LoginSchema = z.object({
     .min(6, { message: "Password must be at least 6 characters" }),
 });
 
-const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
 
 function LoginForm() {
   const {
@@ -25,6 +28,11 @@ function LoginForm() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(LoginSchema) });
+
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
@@ -78,10 +86,10 @@ function LoginForm() {
       </form>
       <div className="divider divider-neutral py-5">OR</div>
       <div className="flex gap-10 justify-between items-center">
-        <button onClick={()=>supabase.auth.signInWithOAuth({ provider: "google" ,options: { redirectTo: "/" }})} className="w-full flex items-center justify-center gap-3 font-semibold p-4 rounded-lg bg-[#1A1D21] text-gray-400 hover:bg-[#1A1D21] border-[#1A1D21]">
+        <button onClick={()=>supabase.auth.signInWithOAuth({ provider: "google" ,options: { redirectTo: "http://localhost:3000/api/auth/callback" }})} className="w-full flex items-center justify-center gap-3 font-semibold p-4 rounded-lg bg-[#1A1D21] text-gray-400 hover:bg-[#1A1D21] border-[#1A1D21]">
           <FcGoogle size={25} /> Google
         </button>
-        <button onClick={()=>supabase.auth.signInWithOAuth({ provider: "github" ,options: { redirectTo: "http://localhost:3000" }})} className="w-full flex items-center justify-center gap-3 font-semibold p-4 rounded-lg bg-[#1A1D21] text-gray-400 hover:bg-[#1A1D21] border-[#1A1D21]">
+        <button onClick={()=>supabase.auth.signInWithOAuth({ provider: "github" ,options: { redirectTo: "http://localhost:3000/api/auth/callback" }})} className="w-full flex items-center justify-center gap-3 font-semibold p-4 rounded-lg bg-[#1A1D21] text-gray-400 hover:bg-[#1A1D21] border-[#1A1D21]">
           <BsGithub size={25} /> Github
         </button>
       </div>
