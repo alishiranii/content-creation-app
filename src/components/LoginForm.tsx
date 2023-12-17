@@ -34,8 +34,16 @@ function LoginForm() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   )
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const {data:session,error}= await supabase.auth.signInWithPassword({email: data.email,
+    password: data.password,options:{}})
+    console.log(data.email,data.password);
+    if(session){
+      console.log(session);
+    }else{
+      console.log(error);
+      
+    }
   };
 
   return (
