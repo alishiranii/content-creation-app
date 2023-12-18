@@ -3,10 +3,38 @@ import React from "react";
 import Banner from "@/assets/Illustration.png";
 import LoginForm from "@/components/LoginForm";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
+import { Metadata } from "next";
 
-function page() {
+export const metadata: Metadata = {
+  title: 'Content Creation App | Login',
+  description: 'Login page for Content Creation App',
+}
+
+async function page() {
+  const cookieStore = cookies()
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value
+        },
+      },
+    }
+  )
+
+  const {data:{session}}=await supabase.auth.getSession();
+  
+  if(session) {
+    redirect('/');
+  }
+
   return (
-    <div className="w-full min-h-screen bg-[#131619]">
+    <div className="w-full min-h-screen bg-darkBlack">
       <div className="flex flex-col lg:flex-row justify-between gap-2">
         {/* Login form */}
         <div className="lg:w-1/2  p-5 lg:pl-10 lg:py-10 flex flex-col justify-between">

@@ -10,6 +10,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { createBrowserClient } from "@supabase/ssr";
+import { useRouter } from "next/navigation";
 // import { supabase } from "@/lib";
 
 
@@ -29,22 +30,28 @@ function LoginForm() {
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(LoginSchema) });
 
+  const router=useRouter();
+
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   )
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const {data:session,error}= await supabase.auth.signInWithPassword({email: data.email,
-    password: data.password,options:{}})
-    console.log(data.email,data.password);
+
+  const onSubmit: SubmitHandler<FieldValues> = async (d) => {
+    await supabase.auth.signInWithPassword({email: d.email,
+    password: d.password})
+    const {data:{session}}=await supabase.auth.getSession();
     if(session){
-      console.log(session);
+      router.refresh();
     }else{
-      console.log(error);
-      
+      console.error("there was an error in signing the user in!");
     }
   };
+  
+
+
+
 
   return (
     <div className="flex h-full flex-col lg:px-20 py-14 lg:py-0 mx-auto justify-center">
