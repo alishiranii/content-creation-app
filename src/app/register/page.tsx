@@ -1,41 +1,13 @@
-import Image from "next/image";
-import React from "react";
-import Banner from "@/assets/banner2.png";
-import LoginForm from "@/components/LoginForm";
-import Link from "next/link";
-import { redirect } from "next/navigation";
-import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
-import { Metadata } from "next";
+import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
+import Banner from "@/assets/banner1.png";
+import SignupForm from '@/components/SignupForm';
 
-export const metadata: Metadata = {
-  title: 'Content Creation App | Login',
-  description: 'Login page for Content Creation App',
-}
-
-async function page() {
-  const cookieStore = cookies()
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value
-        },
-      },
-    }
-  )
-
-  const {data:{session}}=await supabase.auth.getSession();
-  
-  if(session) {
-    redirect('/');
-  }
-
+function page() {
   return (
-    <div className="w-full min-h-screen bg-[#131619]">
-      <div className="flex flex-col lg:flex-row justify-between gap-2">
+    <div className='bg-[#131619] min-h-screen w-screen'>
+        <div className="flex flex-col lg:flex-row justify-between gap-2">
         {/* Login form */}
         <div className="lg:w-1/2  p-5 lg:pl-10 lg:py-10 flex flex-col justify-between">
           <Link href={"/"} className="w-fit">
@@ -68,8 +40,8 @@ async function page() {
               </defs>
             </svg>
           </Link>
-          <LoginForm />
-        <p className="text-gray-500">Don&apos;t have an account?<Link href={"/register"} className="gr-text"> Sign Up</Link></p>  
+          <SignupForm />
+        <p className="text-gray-500">Already have an account?<Link href={"/login"} className="gr-text"> Log in</Link></p>  
         </div>
 
         {/* image */}
@@ -82,7 +54,7 @@ async function page() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default page;
+export default page
