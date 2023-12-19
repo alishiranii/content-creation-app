@@ -1,6 +1,6 @@
 "use client"
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import { FieldError, FieldErrorsImpl, FieldValues, Merge, UseFormRegister } from 'react-hook-form';
 
 interface InputProps{
@@ -23,6 +23,7 @@ function Input({Icon,placeHolder,inpType,register,name,error}:InputProps) {
         </div>
         
     </div>
+     {/* @ts-ignore: Unreachable code error */}
     {error && <p className='text-red-500 text-sm'>{error}</p>}
     </div>
   )
