@@ -8,7 +8,6 @@ import Link from "next/link";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
 // import { supabase } from "@/lib";
@@ -31,6 +30,8 @@ function LoginForm() {
   } = useForm({ resolver: zodResolver(LoginSchema) });
 
   const router=useRouter();
+  
+  
 
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -101,10 +102,10 @@ function LoginForm() {
       </form>
       <div className="divider divider-neutral py-5">OR</div>
       <div className="flex gap-10 justify-between items-center">
-        <button onClick={()=>supabase.auth.signInWithOAuth({ provider: "google" ,options: { redirectTo: "http://localhost:3000/api/auth/callback" }})} className="w-full flex items-center justify-center gap-3 font-semibold p-4 rounded-lg bg-[#1A1D21] text-gray-400 hover:bg-[#1A1D21] border-[#1A1D21]">
+        <button onClick={()=>supabase.auth.signInWithOAuth({ provider: "google" ,options: { redirectTo: `${origin}/api/auth/callback`}})} className="w-full flex items-center justify-center gap-3 font-semibold p-4 rounded-lg bg-[#1A1D21] text-gray-400 hover:bg-[#1A1D21] border-[#1A1D21]">
           <FcGoogle size={25} /> Google
         </button>
-        <button onClick={()=>supabase.auth.signInWithOAuth({ provider: "github" ,options: { redirectTo: "http://localhost:3000/api/auth/callback" }})} className="w-full flex items-center justify-center gap-3 font-semibold p-4 rounded-lg bg-[#1A1D21] text-gray-400 hover:bg-[#1A1D21] border-[#1A1D21]">
+        <button onClick={()=>supabase.auth.signInWithOAuth({ provider: "github" ,options: { redirectTo: `${origin}/api/auth/callback` }})} className="w-full flex items-center justify-center gap-3 font-semibold p-4 rounded-lg bg-[#1A1D21] text-gray-400 hover:bg-[#1A1D21] border-[#1A1D21]">
           <BsGithub size={25} /> Github
         </button>
       </div>
