@@ -1,26 +1,27 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Input from "./Input";
 import { TfiEmail, TfiLock } from "react-icons/tfi";
-import { FcGoogle } from "react-icons/fc";
-import { BsGithub } from "react-icons/bs";
 import Link from "next/link";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
-// import { supabase } from "@/lib";
+import { toast } from "sonner";
 
 
 
-const LoginSchema = z.object({
+const SignupSchema = z.object({
   email: z.string().email({ message: "Invalid email" }),
   password: z
     .string()
     .min(6, { message: "Password must be at least 6 characters" }),
-});
+    cpassword:z.string()
+}).refine((data)=>data.password == data.cpassword ,{
+  message: "Passwords don't match",
+  path: ["cpassword"],
+})
 
 
 function SignupForm() {
@@ -28,7 +29,8 @@ function SignupForm() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm({ resolver: zodResolver(LoginSchema) });
+  } = useForm({ resolver: zodResolver(SignupSchema) });
+  const [checked,setChecked]=useState(false);
 
   const router=useRouter();
 
@@ -39,10 +41,11 @@ function SignupForm() {
 
 
   const onSubmit: SubmitHandler<FieldValues> = async (d) => {
-    await supabase.auth.signInWithPassword({email: d.email,
+    await supabase.auth.signUp({email: d.email,
     password: d.password})
     const {data:{session}}=await supabase.auth.getSession();
     if(session){
+      toast.success('Your account has been created.')
       router.refresh();
     }else{
       console.error("there was an error in signing the user in!");
@@ -96,11 +99,13 @@ function SignupForm() {
               className="checkbox border-[#363A3D] bg-[#1A1D21]"
               name="check"
               type="checkbox"
+              checked={checked}
+              onClick={()=>setChecked(!checked)}
             />
             <label htmlFor="check">I agree with <span className="gr-text">Terms and conditions</span></label>
           </div>
-          <button className="btn hover:bg-[#b7f09ce4] bg-[#B6F09C]" type="submit">
-          Sign Up
+          <button className={`btn hover:bg-[#b7f09ce4] bg-[#B6F09C] ${!checked && "btn-disabled !text-gray-300"} ${isSubmitting && "!btn-disabled"}`} type="submit">
+          {isSubmitting ? <span className="loading loading-spinner loading-md text-gray-200"></span> : "Sign Up"}
         </button>
         </div>
       </form>

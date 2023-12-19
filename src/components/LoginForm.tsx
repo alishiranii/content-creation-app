@@ -10,7 +10,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
-// import { supabase } from "@/lib";
+import { toast } from "sonner";
 
 
 
@@ -44,6 +44,7 @@ function LoginForm() {
     password: d.password})
     const {data:{session}}=await supabase.auth.getSession();
     if(session){
+      toast.success('You have been signed in succesfuly.')
       router.refresh();
     }else{
       console.error("there was an error in signing the user in!");
@@ -96,8 +97,8 @@ function LoginForm() {
             Forgot Password?
           </Link>
         </div>
-        <button className="btn hover:bg-[#b7f09ce4] bg-[#B6F09C]" type="submit">
-          Log in
+        <button className={`btn hover:bg-[#b7f09ce4] bg-[#B6F09C] ${isSubmitting && "!btn-disabled"}`} type="submit">
+          {isSubmitting ? <span className="loading loading-spinner loading-md text-gray-200"></span> : "Log in"}
         </button>
       </form>
       <div className="divider divider-neutral py-5">OR</div>

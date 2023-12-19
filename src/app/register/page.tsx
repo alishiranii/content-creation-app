@@ -3,8 +3,31 @@ import Link from 'next/link'
 import React from 'react'
 import Banner from "@/assets/banner1.png";
 import SignupForm from '@/components/SignupForm';
+import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
+import { createServerClient } from '@supabase/ssr';
 
-function page() {
+async function page() {
+  const cookieStore = cookies()
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value
+        },
+      },
+    }
+  )
+
+  const {data:{session}}=await supabase.auth.getSession();
+  
+  if(session) {
+    redirect('/');
+  }
+
+
   return (
     <div className='bg-[#131619] min-h-screen w-screen'>
         <div className="flex flex-col lg:flex-row justify-between gap-2">
