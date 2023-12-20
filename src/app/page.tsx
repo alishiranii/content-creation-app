@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import Image from 'next/image'
 import { createServerClient } from '@supabase/ssr'
+import Sidebar from '@/components/Sidebar'
 
 export default async function Home() {
   const cookieStore = cookies()
@@ -24,6 +25,12 @@ export default async function Home() {
     redirect('/login');
   }
   return (
-    <div className='bg-[#131619] min-h-screen w-full'>Hey there {session?.user?.email} you are signed in</div>
+    <div className='bg-[#131619] min-h-screen w-full'>
+      <div className='flex'>
+        <Sidebar user={session.user.email}/>
+        <div className='w-full'>
+          </div>        
+      </div>
+    </div>
   )
 }
