@@ -6,7 +6,7 @@ import {MdOutlineLogout} from "react-icons/md";
 
 function Sidebar({user}:{user:string|undefined}) {
   return (
-    <div className="lg:w-1/4 w-full m-3 bg-[#0D0F10] rounded-lg h-[95vh]">
+    <div className="lg:w-1/4 w-full m-3 shadow-lg z-50 bg-[#0D0F10] rounded-lg h-[95vh]">
       <div className="p-3 flex flex-col h-full">
         <div className="flex flex-col gap-3">
           <h3 className="uppercase text-[#686B6E] text-sm">General</h3>
@@ -40,7 +40,7 @@ function Sidebar({user}:{user:string|undefined}) {
             </div>
             <div className="flex flex-col gap-2">
               <h3 className="text-white text-sm">{user}</h3>  
-              <p className="text-green-800 text-xs">Premium</p>
+              <p className="text-green-600 text-xs">Premium</p>
             </div>
             <button className="ml-auto btn btn-circle btn-ghost text-[#686B6E] text-3xl">
               <MdOutlineLogout />  

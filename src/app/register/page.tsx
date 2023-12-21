@@ -6,6 +6,13 @@ import SignupForm from '@/components/SignupForm';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@supabase/ssr';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Content Creation App | Register',
+  description: 'Register page for Content Creation App',
+}
+
 
 async function page() {
   const cookieStore = cookies()
