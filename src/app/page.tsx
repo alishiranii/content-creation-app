@@ -5,6 +5,7 @@ import Image from "next/image";
 import { createServerClient } from "@supabase/ssr";
 import Sidebar from "@/components/Sidebar";
 import MainInput from "@/components/MainInput";
+import SidebarBtn from "@/components/SidebarBtn";
 
 export default async function Home() {
   const cookieStore = cookies();
@@ -29,9 +30,10 @@ export default async function Home() {
   }
   return (
     <div className="bg-[#131619] min-h-screen w-full">
-      <div className="flex">
+      <div className="flex lg:min-h-full min-h-screen">
+        <SidebarBtn/>
         <Sidebar user={session.user.email} />
-        <div className="w-full">
+        <div className="w-full mt-auto flex-1">
           <MainInput/>
         </div>
       </div>
