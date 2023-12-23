@@ -9,7 +9,7 @@ import {MdOutlineLogout} from "react-icons/md";
 function Sidebar({user}:{user:string|undefined}) {
   const isOpen=useSidebar((state:any)=>state.isOpen);
   return (
-    <div className={`lg:w-1/4 ${isOpen ? "w-3/4 fixed m-0 bottom-0 top-0 h-full" : "hidden"} lg:block w-full m-3 shadow-lg z-50 bg-[#0D0F10] rounded-lg h-[95vh]`}>
+    <div className={`lg:w-1/4 ${isOpen ? "w-3/4 fixed lg:static m-0 bottom-0 top-0 h-full " : "hidden"} lg:block w-full lg:m-3 shadow-lg z-50 bg-[#0D0F10] rounded-lg lg:h-[95vh]`}>
       <div className="p-3 flex flex-col h-full">
         <div className="flex flex-col gap-3">
           <h3 className="uppercase text-[#686B6E] text-sm">General</h3>
