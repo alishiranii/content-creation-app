@@ -3,16 +3,37 @@ import { useSidebar } from "@/store/useStore";
 import React from "react";
 import { CiSearch, CiCreditCard1, CiCirclePlus } from "react-icons/ci";
 import {MdOutlineLogout} from "react-icons/md";
+import { IoCloseCircleOutline } from "react-icons/io5";
+import { createBrowserClient } from "@supabase/ssr";
+import { useRouter } from "next/navigation";
 
+const supabase = createBrowserClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
+
+// TODO: install or use daisy ui modal and create modeal for new project
 
 
 function Sidebar({user}:{user:string|undefined}) {
   const isOpen=useSidebar((state:any)=>state.isOpen);
+  const setOpen=useSidebar((state:any)=>state.setOpen);
+  const router = useRouter();
+
+  async function handleSignOut(){
+    await supabase.auth.signOut();
+    if(isOpen) setOpen();
+    router.refresh();
+  }
+
   return (
-    <div className={`lg:w-1/4 ${isOpen ? "w-3/4 fixed lg:static m-0 bottom-0 top-0 h-full " : "hidden"} lg:block w-full lg:m-3 shadow-lg z-50 bg-[#0D0F10] rounded-lg lg:h-[95vh]`}>
+    <div className={`lg:w-1/4 ${isOpen ? "w-3/4 md:w-2/4 fixed lg:static m-0 bottom-0 top-0 h-full " : "hidden"} lg:block w-full lg:m-3 shadow-lg z-50 bg-[#0D0F10] rounded-lg lg:h-[95vh]`}>
       <div className="p-3 flex flex-col h-full">
-        <div className="flex flex-col gap-3">
+        <div className="flex relative flex-col gap-3">
           <h3 className="uppercase text-[#686B6E] text-sm">General</h3>
+          {
+            isOpen && <button onClick={setOpen} className="btn btn-circle text-4xl lg:hidden text-white btn-ghost absolute top-0 right-0"><IoCloseCircleOutline/></button>
+          }
           <div className="flex flex-col">
             <button className="btn btn-ghost justify-start">
               <CiSearch color="#686B6E" size={23} />{" "}
@@ -28,6 +49,7 @@ function Sidebar({user}:{user:string|undefined}) {
         <div className="flex flex-col gap-3">
           <h3 className="uppercase text-[#686B6E] text-sm">Projects</h3>
           <div className="flex flex-col">
+
             <button className="btn btn-ghost justify-start">
               <CiCirclePlus color="#686B6E" size={23} />{" "}
               <span className="text-[#686B6E]">Add new project</span>
@@ -45,7 +67,7 @@ function Sidebar({user}:{user:string|undefined}) {
               <h3 className="text-white text-sm">{user}</h3>  
               <p className="text-green-600 text-xs">Premium</p>
             </div>
-            <button className="ml-auto btn btn-circle btn-ghost text-[#686B6E] text-3xl">
+            <button onClick={handleSignOut} className="ml-auto btn btn-circle btn-ghost text-[#686B6E] text-3xl">
               <MdOutlineLogout />  
             </button>
           </div>
