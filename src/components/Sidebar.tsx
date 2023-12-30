@@ -6,13 +6,13 @@ import {MdOutlineLogout} from "react-icons/md";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
+import Modal from "./Modal";
 
 const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-// TODO: install or use daisy ui modal and create modeal for new project
 
 
 function Sidebar({user}:{user:string|undefined}) {
@@ -24,6 +24,9 @@ function Sidebar({user}:{user:string|undefined}) {
     await supabase.auth.signOut();
     if(isOpen) setOpen();
     router.refresh();
+  }
+  function handleClick(){
+    (document.getElementById("project_modal") as HTMLDialogElement)?.showModal()
   }
 
   return (
@@ -50,10 +53,13 @@ function Sidebar({user}:{user:string|undefined}) {
           <h3 className="uppercase text-[#686B6E] text-sm">Projects</h3>
           <div className="flex flex-col">
 
-            <button className="btn btn-ghost justify-start">
+            <button onClick={handleClick} className="btn btn-ghost justify-start">
               <CiCirclePlus color="#686B6E" size={23} />{" "}
               <span className="text-[#686B6E]">Add new project</span>
             </button>{" "}
+            <Modal>
+              <div>hello</div>
+            </Modal>
           </div>
         </div>
         <div className="mt-auto glass w-full rounded-2xl flex items-center">
