@@ -1,17 +1,17 @@
 "use client"
-import React from 'react'
+import React from 'react';
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 function Modal({children}:{children:React.ReactNode}) {
   return (
     <dialog id="project_modal" className="modal">
-  <div className="modal-box">
-    {children}
-    <div className="modal-action">
+  <div className="modal-box bg-[#0D0F10]"> 
+    <div className="flex justify-end">
       <form method="dialog">
-        {/* if there is a button in form, it will close the modal */}
-        <button className="btn">Close</button>
+        <button className="btn btn-circle btn-ghost text-white"><IoIosCloseCircleOutline size={35}/></button>
       </form>
     </div>
+    {children}
   </div>
 </dialog>
   )
