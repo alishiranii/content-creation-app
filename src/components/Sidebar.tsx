@@ -7,56 +7,29 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
 import Modal from "./Modal";
-import Input from "./Input";
-import { BiRename } from "react-icons/bi";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import Image from "next/image";
-import X from "@/assets/logos/x.svg";
-import Instagram from "@/assets/logos/instagram.svg";
-import Youtube from "@/assets/logos/youtube.svg";
+import ListItem from "./ListItem";
 
 const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-const ModalSchema = z.object({
-  project: z
-    .string()
-    .min(6, { message: "Project name must be at least 6 characters" }),
-});
-
 function Sidebar({ user }: { user: string | undefined }) {
   const isOpen = useSidebar((state: any) => state.isOpen);
   const setOpen = useSidebar((state: any) => state.setOpen);
   const router = useRouter();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm({ resolver: zodResolver(ModalSchema) });
 
   async function handleSignOut() {
     await supabase.auth.signOut();
     if (isOpen) setOpen();
     router.refresh();
   }
+
   function handleClick() {
     (
       document.getElementById("project_modal") as HTMLDialogElement
     )?.showModal();
   }
-
-  const onSubmit: SubmitHandler<FieldValues> = async (d) => {
-    
-    (
-      document.getElementById("project_modal") as HTMLDialogElement
-    )?.close();
-    
-  };
 
   return (
     <div
@@ -91,7 +64,7 @@ function Sidebar({ user }: { user: string | undefined }) {
         <div className="divider divider-neutral"></div>
         <div className="flex flex-col gap-3">
           <h3 className="uppercase text-[#686B6E] text-sm">Projects</h3>
-          <div className="flex flex-col">
+          <div className="flex gap-2 flex-col">
             <button
               onClick={handleClick}
               className="btn btn-ghost justify-start"
@@ -99,41 +72,8 @@ function Sidebar({ user }: { user: string | undefined }) {
               <CiCirclePlus color="#686B6E" size={23} />{" "}
               <span className="text-[#686B6E]">Add new project</span>
             </button>{" "}
-            <Modal>
-              <form onSubmit={handleSubmit(onSubmit)} className="pt-7 flex flex-col gap-10">
-                <div>
-                  <label className="label text-white">
-                   1. Enter Name of Your Project
-                  </label>
-                  <Input
-                    error={errors.project?.message}
-                    name="project"
-                    register={register}
-                    inpType={"text"}
-                    Icon={<BiRename />}
-                    placeHolder={"Enter Name..."}
-                  />
-                </div>
-
-                <div className="flex flex-col gap-3">
-                  <h3 className="label text-white">
-                    2. Choose a social media
-                  </h3>
-                  <div className="flex items-center justify-around">
-                    <div className="btn glass btn-ghost w-24 h-24">
-                      <Image src={Instagram} alt="logo" />
-                    </div>
-                    <div className="btn glass btn-ghost w-24 h-24">
-                      <Image src={Youtube} alt="logo" />
-                    </div>
-                    <div className="btn glass btn-ghost w-24 h-24">
-                      <Image src={X} alt="logo" />
-                    </div>
-                  </div>
-                </div>
-                <button type="submit" className="btn bg-[#B6F09C]" >Submit</button>
-              </form>
-            </Modal>
+            <ListItem/>
+            <Modal />
           </div>
         </div>
         <div className="mt-auto glass w-full rounded-2xl flex items-center">
