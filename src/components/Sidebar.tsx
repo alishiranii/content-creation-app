@@ -1,6 +1,6 @@
 "use client";
 import { useSidebar } from "@/store/useStore";
-import React from "react";
+import React, { useState } from "react";
 import { CiSearch, CiCreditCard1, CiCirclePlus } from "react-icons/ci";
 import { MdOutlineLogout } from "react-icons/md";
 import { IoCloseCircleOutline } from "react-icons/io5";
@@ -8,6 +8,7 @@ import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
 import Modal from "./Modal";
 import ListItem from "./ListItem";
+import SearchMenu from "./SearchMenu";
 
 const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -15,13 +16,15 @@ const supabase = createBrowserClient(
 );
 
 function Sidebar({ user }: { user: string | undefined }) {
-  const isOpen = useSidebar((state: any) => state.isOpen);
+  const open = useSidebar((state: any) => state.open);
   const setOpen = useSidebar((state: any) => state.setOpen);
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  
 
   async function handleSignOut() {
     await supabase.auth.signOut();
-    if (isOpen) setOpen();
+    if (open) setOpen();
     router.refresh();
   }
 
@@ -34,26 +37,32 @@ function Sidebar({ user }: { user: string | undefined }) {
   return (
     <div
       className={`lg:w-1/4 ${
-        isOpen
+        open
           ? "w-3/4 md:w-2/4 fixed lg:static m-0 bottom-0 top-0 h-full "
           : "hidden"
-      } lg:block w-full lg:m-3 shadow-lg z-50 bg-[#0D0F10] rounded-lg lg:h-[95vh]`}
+      } lg:block w-full lg:m-3 shadow-lg z-10 bg-[#0D0F10] rounded-lg lg:h-[95vh]`}
     >
+      <SearchMenu isOpen={isOpen} setIsOpen={setIsOpen}/>
       <div className="p-3 flex flex-col h-full">
         <div className="flex relative flex-col gap-3">
           <h3 className="uppercase text-[#686B6E] text-sm">General</h3>
-          {isOpen && (
+          {open && (
             <button
               onClick={setOpen}
-              className="btn btn-circle text-4xl lg:hidden text-white btn-ghost absolute top-0 right-0"
+              className="btn btn-circle text-4xl lg:hidden text-white btn-ghost absolute -top-3 -right-1"
             >
               <IoCloseCircleOutline />
             </button>
           )}
           <div className="flex flex-col">
-            <button className="btn btn-ghost justify-start">
-              <CiSearch color="#686B6E" size={23} />{" "}
-              <span className="text-white">Search</span>
+            <button onClick={() => setIsOpen(true)} className="btn btn-ghost justify-between">
+              <div className="flex items-center gap-2">
+                <CiSearch color="#686B6E" size={23} />{" "}
+                <span className="text-white">Search</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <kbd className="kbd">ctrl</kbd><span className="text-white">+</span><kbd className="kbd">k</kbd>
+              </div>
             </button>
             <button className="btn btn-ghost justify-start">
               <CiCreditCard1 color="#686B6E" size={23} />{" "}
@@ -72,7 +81,7 @@ function Sidebar({ user }: { user: string | undefined }) {
               <CiCirclePlus color="#686B6E" size={23} />{" "}
               <span className="text-[#686B6E]">Add new project</span>
             </button>{" "}
-            <ListItem/>
+            <ListItem />
             <Modal />
           </div>
         </div>
