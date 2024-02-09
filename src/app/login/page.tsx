@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import Banner from "@/assets/banner2.png";
-import LoginForm from "@/components/LoginForm";
+import LoginForm from "@/components/login/LoginForm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createServerClient } from "@supabase/ssr";

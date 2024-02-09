@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import X from "@/assets/logos/x.svg";
 import Instagram from "@/assets/logos/instagram.svg";
 import Youtube from "@/assets/logos/youtube.svg";
-import Input from "./Input";
+import Input from "../Input";
 import { BiRename } from "react-icons/bi";
 import { z } from "zod";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -15,6 +15,9 @@ const ModalSchema = z.object({
   project: z
     .string()
     .min(6, { message: "Project name must be at least 6 characters" }),
+  description: z
+    .string()
+    .min(6, { message: "Project description must be at least 6 characters" }),
 });
 
 function Modal() {
@@ -23,18 +26,17 @@ function Modal() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(ModalSchema) });
+  const [social,setSocial]=useState<string>("")
 
-  function handleClick(e: {
-    currentTarget: { classList: { add: (arg0: string) => void } };
-  }) {
+  function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>,platform: string) {
     document.querySelector(".selected")?.classList.remove("selected");
     e.currentTarget.classList.add("selected");
+    setSocial(platform);
   }
   const onSubmit: SubmitHandler<FieldValues> = async (d) => {
-    (document.getElementById("project_modal") as HTMLDialogElement)?.close();
+    if(social) (document.getElementById("project_modal") as HTMLDialogElement)?.close();
   };
 
-  
   return (
     <dialog id="project_modal" className="modal">
       <div className="modal-box bg-[#0D0F10]">
@@ -47,8 +49,7 @@ function Modal() {
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="pt-7 flex flex-col gap-10"
-        >
+          className="pt-5 flex flex-col gap-10">
           <div>
             <label className="label text-white">
               1. Enter Name of Your Project
@@ -62,26 +63,34 @@ function Modal() {
               placeHolder={"Enter Name..."}
             />
           </div>
+          <div>
+            <label className="label text-white">2. Describe Your Project</label>
+            <Input
+              error={errors.description?.message}
+              name="description"
+              register={register}
+              inpType={"text"}
+              Icon={<BiRename />}
+              placeHolder={"Enter Description..."}
+            />
+          </div>
 
           <div className="flex flex-col gap-3">
-            <h3 className="label text-white">2. Choose a social media</h3>
-            <div className="flex items-center justify-around">
+            <h3 className="label text-white">3. Choose a social media</h3>
+            <div className="flex items-center justify-between">
               <div
-                onClick={handleClick}
-                className="btn glass btn-ghost w-24 h-24"
-              >
+                onClick={(e) => handleClick(e, "Instagram")}
+                className="btn glass btn-ghost w-24 h-24">
                 <Image src={Instagram} alt="logo" />
               </div>
               <div
-                onClick={handleClick}
-                className="btn glass btn-ghost w-24 h-24"
-              >
+                onClick={(e) => handleClick(e, "Youtube")}
+                className="btn glass btn-ghost w-24 h-24">
                 <Image src={Youtube} alt="logo" />
               </div>
               <div
-                onClick={handleClick}
-                className="btn glass btn-ghost w-24 h-24"
-              >
+                onClick={(e) => handleClick(e, "X")}
+                className="btn glass btn-ghost w-24 h-24">
                 <Image src={X} alt="logo" />
               </div>
             </div>

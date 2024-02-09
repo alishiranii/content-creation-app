@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import Banner from "@/assets/banner1.png";
-import SignupForm from '@/components/SignupForm';
+import SignupForm from '@/components/register/SignupForm';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@supabase/ssr';

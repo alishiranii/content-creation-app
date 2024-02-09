@@ -3,9 +3,9 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import { createServerClient } from "@supabase/ssr";
-import Sidebar from "@/components/Sidebar";
-import MainInput from "@/components/MainInput";
-import SidebarBtn from "@/components/SidebarBtn";
+import Sidebar from "@/components/main/Sidebar";
+import MainInput from "@/components/main/MainInput";
+import SidebarBtn from "@/components/main/SidebarBtn";
 
 export default async function Home() {
   const cookieStore = cookies();
