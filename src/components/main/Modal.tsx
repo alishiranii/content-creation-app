@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import X from "@/assets/logos/x.svg";
 import Instagram from "@/assets/logos/instagram.svg";
@@ -10,6 +10,7 @@ import { BiRename } from "react-icons/bi";
 import { z } from "zod";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { clientSupabase, supabase } from "@/lib";
 
 const ModalSchema = z.object({
   project: z
@@ -21,20 +22,49 @@ const ModalSchema = z.object({
 });
 
 function Modal() {
+  const [userId, setUserId] = useState<string | undefined>("");
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(ModalSchema) });
-  const [social,setSocial]=useState<string>("")
+  const [social, setSocial] = useState<string>("");
 
-  function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>,platform: string) {
+  useEffect(() => {
+    async function getUserId() {
+      const { data, error } = await clientSupabase.auth.getUserIdentities();
+      setUserId(data?.identities[0].user_id);
+    }
+    getUserId();
+  }, []);
+
+  function handleClick(
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    platform: string
+  ) {
     document.querySelector(".selected")?.classList.remove("selected");
     e.currentTarget.classList.add("selected");
     setSocial(platform);
   }
   const onSubmit: SubmitHandler<FieldValues> = async (d) => {
-    if(social) (document.getElementById("project_modal") as HTMLDialogElement)?.close();
+    if (userId) {
+      const obj = {
+        project_name: d.project,
+        project_description: d.description,
+        project_type: social,
+      };
+
+      const { data, error } = await clientSupabase
+        .from("social")
+        .insert([obj])
+        .select();
+
+      console.log(data);
+      console.log(error);
+    }
+
+    if (social && d.project && d.description)
+      (document.getElementById("project_modal") as HTMLDialogElement)?.close();
   };
 
   return (

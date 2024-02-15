@@ -31,14 +31,10 @@ export default async function Home() {
   return (
     <div className="bg-[#131619] min-h-screen w-full">
       <div className="flex lg:min-h-full min-h-screen">
-        <SidebarBtn/>
-        <div className="drawer-overlay">
-
-        </div>
+        <SidebarBtn />
+        <div className="drawer-overlay"></div>
         <Sidebar user={session.user.email} />
-        <div className="w-full mt-auto flex-1">
-          <MainInput/>
-        </div>
+        <MainInput />
       </div>
     </div>
   );
