@@ -9,11 +9,9 @@ import { useRouter } from "next/navigation";
 import Modal from "./Modal";
 import ListItem from "./ListItem";
 import SearchMenu from "./SearchMenu";
+import { clientSupabase } from "@/lib";
 
-const supabase = createBrowserClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+const supabase = clientSupabase;
 
 function Sidebar({ user }: { user: string | undefined }) {
   const open = useSidebar((state: any) => state.open);

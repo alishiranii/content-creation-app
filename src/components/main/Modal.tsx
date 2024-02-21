@@ -52,12 +52,16 @@ function Modal() {
         project_name: d.project,
         project_description: d.description,
         project_type: social,
+        created_at: new Date(),
       };
 
-      const { data, error } = await clientSupabase
-        .from("social")
-        .insert([obj])
-        .select();
+      
+const { data, error } = await clientSupabase
+  .from("social")
+  .upsert({ projects: [obj] })
+  .eq("user",userId)
+  .select();
+          
 
       console.log(data);
       console.log(error);

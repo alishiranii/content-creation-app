@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { clientSupabase } from "@/lib";
 
 
 
@@ -34,10 +35,7 @@ function SignupForm() {
 
   const router=useRouter();
 
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
+  const supabase = clientSupabase;
 
 
   const onSubmit: SubmitHandler<FieldValues> = async (d) => {

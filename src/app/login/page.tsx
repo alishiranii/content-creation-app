@@ -4,9 +4,9 @@ import Banner from "@/assets/banner2.png";
 import LoginForm from "@/components/login/LoginForm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { Metadata } from "next";
+import { serverSupabase } from "@/lib";
 
 export const metadata: Metadata = {
   title: 'Content Creation App | Login',
@@ -15,17 +15,7 @@ export const metadata: Metadata = {
 
 async function page() {
   const cookieStore = cookies()
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value
-        },
-      },
-    }
-  )
+  const supabase = serverSupabase(cookieStore)
 
   const {data:{session}}=await supabase.auth.getSession();
   

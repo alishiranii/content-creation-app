@@ -1,25 +1,14 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Image from "next/image";
-import { createServerClient } from "@supabase/ssr";
 import Sidebar from "@/components/main/Sidebar";
 import MainInput from "@/components/main/MainInput";
 import SidebarBtn from "@/components/main/SidebarBtn";
+import { serverSupabase } from "@/lib";
 
 export default async function Home() {
   const cookieStore = cookies();
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
-        },
-      },
-    }
-  );
+  const supabase = serverSupabase(cookieStore);
 
   const {
     data: { session },
