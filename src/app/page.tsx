@@ -24,10 +24,7 @@ export default async function Home() {
         <div className="drawer-overlay"></div>
         <Sidebar user={session.user.email} />
         <div className="flex relative flex-col w-full">
-          <div className="flex absolute top-0 w-full items-center justify-between bg-[#0D0F10] lg:rounded-lg lg:mt-3">
             <TopBar />
-            <SidebarBtn />
-          </div>
           <div className="absolute bottom-2 w-full">
             <MainInput />
           </div>
