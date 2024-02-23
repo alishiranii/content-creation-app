@@ -29,7 +29,6 @@ function Sidebar({ user }: { user: string | undefined }) {
   useEffect(() => {
     fetchList();
   }, [list]);
-  
 
   async function handleSignOut() {
     await supabase.auth.signOut();
@@ -42,7 +41,10 @@ function Sidebar({ user }: { user: string | undefined }) {
       document.getElementById("project_modal") as HTMLDialogElement
     )?.showModal();
   }
-  list?.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+  list?.sort(
+    (a, b) =>
+      new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
   return (
     <div
       className={`lg:w-1/4 ${
@@ -97,6 +99,7 @@ function Sidebar({ user }: { user: string | undefined }) {
                 .map((l) => (
                   <ListItem
                     key={l.id}
+                    description={l.project_description}
                     title={l.project_name}
                     social={l.project_type}
                   />
@@ -116,7 +119,7 @@ function Sidebar({ user }: { user: string | undefined }) {
                 </span>
               </div>
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 overflow-hidden">
               <h3 className="text-white text-sm">{user}</h3>
               <p className="text-green-600 text-xs">Premium</p>
             </div>
