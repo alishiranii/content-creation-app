@@ -26,6 +26,7 @@ function Modal() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(ModalSchema) });
   const [social, setSocial] = useState<string>("");
@@ -47,28 +48,28 @@ function Modal() {
     setSocial(platform);
   }
   const onSubmit: SubmitHandler<FieldValues> = async (d) => {
-    if (userId) {
+    if (userId && social) {
       const obj = {
         project_name: d.project,
         project_description: d.description,
         project_type: social,
-        created_at: new Date(),
       };
 
-      
-const { data, error } = await clientSupabase
-  .from("social")
-  .upsert({ projects: [obj] })
-  .eq("user",userId)
-  .select();
-          
+      const { data, error } = await clientSupabase
+        .from("social")
+        .insert([obj])
+        .select();
 
       console.log(data);
-      console.log(error);
+      setSocial("");
+      document.querySelector(".selected")?.classList.remove("selected");
+      reset();
+      if (data) {
+        (
+          document.getElementById("project_modal") as HTMLDialogElement
+        )?.close();
+      }
     }
-
-    if (social && d.project && d.description)
-      (document.getElementById("project_modal") as HTMLDialogElement)?.close();
   };
 
   return (

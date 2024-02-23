@@ -1,6 +1,6 @@
 "use client";
 import { useSidebar } from "@/store/useStore";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CiSearch, CiCreditCard1, CiCirclePlus } from "react-icons/ci";
 import { MdOutlineLogout } from "react-icons/md";
 import { IoCloseCircleOutline } from "react-icons/io5";
@@ -18,6 +18,17 @@ function Sidebar({ user }: { user: string | undefined }) {
   const setOpen = useSidebar((state: any) => state.setOpen);
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [list, setList] = useState<any[] | null>();
+
+  const supabase = clientSupabase;
+  async function fetchList() {
+    const { data, error } = await supabase.from("social").select();
+    setList(data);
+  }
+
+  useEffect(() => {
+    fetchList();
+  }, [list]);
   
 
   async function handleSignOut() {
@@ -31,35 +42,37 @@ function Sidebar({ user }: { user: string | undefined }) {
       document.getElementById("project_modal") as HTMLDialogElement
     )?.showModal();
   }
-
+  list?.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
   return (
     <div
       className={`lg:w-1/4 ${
         open
           ? "w-3/4 md:w-2/4 fixed lg:static m-0 bottom-0 top-0 h-full "
           : "hidden"
-      } lg:block w-full lg:m-3 shadow-lg z-10 bg-[#0D0F10] rounded-lg lg:h-[95vh]`}
-    >
-      <SearchMenu isOpen={isOpen} setIsOpen={setIsOpen}/>
+      } lg:block w-full lg:m-3 shadow-lg z-10 bg-[#0D0F10] rounded-lg lg:h-[95vh]`}>
+      <SearchMenu isOpen={isOpen} setIsOpen={setIsOpen} />
       <div className="p-3 flex flex-col h-full">
         <div className="flex relative flex-col gap-3">
           <h3 className="uppercase text-[#686B6E] text-sm">General</h3>
           {open && (
             <button
               onClick={setOpen}
-              className="btn btn-circle text-4xl lg:hidden text-white btn-ghost absolute -top-3 -right-1"
-            >
+              className="btn btn-circle text-4xl lg:hidden text-white btn-ghost absolute -top-3 -right-1">
               <IoCloseCircleOutline />
             </button>
           )}
           <div className="flex flex-col">
-            <button onClick={() => setIsOpen(true)} className="btn btn-ghost justify-between">
+            <button
+              onClick={() => setIsOpen(true)}
+              className="btn btn-ghost justify-between">
               <div className="flex items-center gap-2">
                 <CiSearch color="#686B6E" size={23} />{" "}
                 <span className="text-white">Search</span>
               </div>
               <div className="flex items-center gap-2">
-                <kbd className="kbd">ctrl</kbd><span className="text-white">+</span><kbd className="kbd">k</kbd>
+                <kbd className="kbd">ctrl</kbd>
+                <span className="text-white">+</span>
+                <kbd className="kbd">k</kbd>
               </div>
             </button>
             <button className="btn btn-ghost justify-start">
@@ -74,12 +87,23 @@ function Sidebar({ user }: { user: string | undefined }) {
           <div className="flex gap-2 flex-col">
             <button
               onClick={handleClick}
-              className="btn btn-ghost justify-start"
-            >
+              className="btn btn-ghost justify-start">
               <CiCirclePlus color="#686B6E" size={23} />{" "}
               <span className="text-[#686B6E]">Add new project</span>
             </button>{" "}
-            <ListItem />
+            {list ? (
+              list
+                .sort((a, b) => a.created_at - b.created_at)
+                .map((l) => (
+                  <ListItem
+                    key={l.id}
+                    title={l.project_name}
+                    social={l.project_type}
+                  />
+                ))
+            ) : (
+              <div className="loading loading-dots w-14 text-green-700"></div>
+            )}
             <Modal />
           </div>
         </div>
@@ -98,8 +122,7 @@ function Sidebar({ user }: { user: string | undefined }) {
             </div>
             <button
               onClick={handleSignOut}
-              className="ml-auto btn btn-circle btn-ghost text-[#686B6E] text-3xl"
-            >
+              className="ml-auto btn btn-circle btn-ghost text-[#686B6E] text-3xl">
               <MdOutlineLogout />
             </button>
           </div>
