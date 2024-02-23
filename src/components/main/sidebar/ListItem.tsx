@@ -12,9 +12,13 @@ interface ListItemProps{
 
 function ListItem({title,social}:ListItemProps) {
   
+  function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    document.querySelector(".listItem")?.classList.remove("listItem");
+    e.currentTarget.classList.add("listItem");
+  }
 
   return (
-    <div className="btn btn-ghost justify-start text-white">
+    <div onClick={handleClick} className="btn btn-ghost justify-start text-white">
       {social == "Instagram" && (
         <Image src={Instagram} width={30} alt="logo" className="drop" />
       )}

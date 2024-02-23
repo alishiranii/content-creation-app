@@ -5,7 +5,7 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import X from "@/assets/logos/x.svg";
 import Instagram from "@/assets/logos/instagram.svg";
 import Youtube from "@/assets/logos/youtube.svg";
-import Input from "../Input";
+import Input from "../../Input";
 import { BiRename } from "react-icons/bi";
 import { z } from "zod";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";

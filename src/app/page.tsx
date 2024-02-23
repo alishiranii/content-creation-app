@@ -1,10 +1,11 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Image from "next/image";
-import Sidebar from "@/components/main/Sidebar";
-import MainInput from "@/components/main/MainInput";
-import SidebarBtn from "@/components/main/SidebarBtn";
+import Sidebar from "@/components/main/sidebar/Sidebar";
+import MainInput from "@/components/main/content/MainInput";
+import SidebarBtn from "@/components/main/sidebar/SidebarBtn";
 import { serverSupabase } from "@/lib";
+import TopBar from "@/components/main/content/TopBar";
 
 export default async function Home() {
   const cookieStore = cookies();
@@ -23,7 +24,12 @@ export default async function Home() {
         <SidebarBtn />
         <div className="drawer-overlay"></div>
         <Sidebar user={session.user.email} />
-        <MainInput />
+        <div className="flex relative flex-col w-full">
+          <TopBar />
+          <div className="absolute bottom-2 w-full">
+            <MainInput />
+          </div>
+        </div>
       </div>
     </div>
   );

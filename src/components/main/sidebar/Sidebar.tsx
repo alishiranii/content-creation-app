@@ -102,7 +102,7 @@ function Sidebar({ user }: { user: string | undefined }) {
                   />
                 ))
             ) : (
-              <div className="loading loading-dots w-14 text-green-700"></div>
+              <div className="loading loading-dots w-14 text-green-700 mx-auto"></div>
             )}
             <Modal />
           </div>
