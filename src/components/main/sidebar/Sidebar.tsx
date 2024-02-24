@@ -95,7 +95,6 @@ function Sidebar({ user }: { user: string | undefined }) {
             </button>{" "}
             {list ? (
               list
-                .sort((a, b) => a.created_at - b.created_at)
                 .map((l) => (
                   <ListItem
                     key={l.id}

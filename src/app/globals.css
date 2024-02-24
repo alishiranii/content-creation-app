@@ -28,6 +28,10 @@
 .listItem{
   background: linear-gradient(118deg, rgba(215, 237, 237, 0.16) -47.79%, rgba(204, 235, 235, 0.00) 100%);
 }
+.activeTab{
+  @apply tab-active !border-purple-500;
+
+}
 .drop{
   filter: drop-shadow(0px 4px 6px rgba(226, 111, 32, 0.16)) drop-shadow(0px 10px 15px rgba(226, 111, 32, 0.16));
 }

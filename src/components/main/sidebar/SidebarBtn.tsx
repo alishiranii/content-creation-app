@@ -9,7 +9,7 @@ function SidebarBtn() {
   return (
     <button
       onClick={setOpen}
-      className="btn btn-ghost text-3xl text-white btn-circle lg:hidden">
+      className="btn btn-ghost text-3xl text-white ml-auto btn-circle">
       <RiMenu3Fill />
     </button>
   );

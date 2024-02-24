@@ -8,6 +8,7 @@ function MainInput() {
       <input
         className="p-5 pl-14 rounded-xl w-full bg-[#0D0F10] placeholder:text-[#686B6E] placeholder:text-sm text-white"
         placeholder="You can ask me anything!"
+        autoFocus
       />
       <button
         type="button"
