@@ -11,6 +11,7 @@ import { z } from "zod";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { clientSupabase, supabase } from "@/lib";
+import { useRouter } from "next/navigation";
 
 const ModalSchema = z.object({
   project: z
@@ -23,6 +24,7 @@ const ModalSchema = z.object({
 
 function Modal() {
   const [userId, setUserId] = useState<string | undefined>("");
+
   const {
     register,
     handleSubmit,
@@ -68,6 +70,7 @@ function Modal() {
         (
           document.getElementById("project_modal") as HTMLDialogElement
         )?.close();
+        
       }
     }
   };

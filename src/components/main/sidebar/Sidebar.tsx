@@ -11,8 +11,6 @@ import ListItem from "./ListItem";
 import SearchMenu from "./SearchMenu";
 import { clientSupabase } from "@/lib";
 
-const supabase = clientSupabase;
-
 function Sidebar({ user }: { user: string | undefined }) {
   const open = useSidebar((state: any) => state.open);
   const setOpen = useSidebar((state: any) => state.setOpen);
@@ -28,7 +26,7 @@ function Sidebar({ user }: { user: string | undefined }) {
 
   useEffect(() => {
     fetchList();
-  }, [list]);
+  }, []);
 
   async function handleSignOut() {
     await supabase.auth.signOut();
@@ -93,19 +91,21 @@ function Sidebar({ user }: { user: string | undefined }) {
               <CiCirclePlus color="#686B6E" size={23} />{" "}
               <span className="text-[#686B6E]">Add new project</span>
             </button>{" "}
-            {list ? (
-              list
-                .map((l) => (
+            <div className="flex flex-col gap-2 max-h-96 overflow-y-scroll">
+              {list ? (
+                list.map((l) => (
                   <ListItem
                     key={l.id}
+                    id={l.id}
                     description={l.project_description}
                     title={l.project_name}
                     social={l.project_type}
                   />
                 ))
-            ) : (
-              <div className="loading loading-dots w-14 text-green-700 mx-auto"></div>
-            )}
+              ) : (
+                <div className="loading loading-dots w-14 text-green-700 mx-auto"></div>
+              )}
+            </div>
             <Modal />
           </div>
         </div>

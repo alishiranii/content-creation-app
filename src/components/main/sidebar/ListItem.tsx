@@ -5,20 +5,25 @@ import Instagram from "@/assets/logos/instagram.svg"
 import Youtube from "@/assets/logos/youtube.svg"
 import X from "@/assets/logos/x.svg"
 import { useProject, useSidebar } from '@/store/useStore';
+import { usePathname, useRouter } from "next/navigation";
 
 interface ListItemProps{
   title: string,
   social: string,
-  description:string
+  description: string,
+  id:number
 }
 
-function ListItem({ title, social, description }: ListItemProps) {
+function ListItem({ title, social, description,id }: ListItemProps) {
   const setOpen = useSidebar((state: any) => state.setOpen);
   const setProject = useProject((state: any) => state.setProject);
+  const router = useRouter();
+  const pathname = usePathname();
 
   function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     document.querySelector(".listItem")?.classList.remove("listItem");
     e.currentTarget.classList.add("listItem");
+    router.push(pathname + "?" + "projectid" + "=" + id)
     setProject({title,description})
     setOpen();
   }

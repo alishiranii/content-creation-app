@@ -14,7 +14,7 @@ function TopBar() {
     setTab(t)
   }
   return (
-    <div className="flex flex-col absolute top-0 w-full bg-[#0D0F10] lg:rounded-lg lg:mt-3 p-5 pb-2">
+    <div className="flex flex-col absolute top-0 w-full bg-[#0D0F10] lg:rounded-lg lg:mt-3 p-5">
       <div className="flex justify-between items-center">
         {project && (
           <div className="flex flex-col gap-2">
