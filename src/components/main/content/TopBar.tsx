@@ -1,12 +1,12 @@
 "use client";
-import { useProject } from "@/store/useStore";
+import { useProject, useTab } from "@/store/useStore";
 import React, { useState } from "react";
 import SidebarBtn from "../sidebar/SidebarBtn";
 import { IoChatboxEllipsesOutline, IoCreateOutline } from "react-icons/io5";
 
 function TopBar() {
   const project = useProject((state: any) => state.project);
-  const [tab, setTab] = useState<string>("chat");
+  const setTab = useTab((state: any) => state.setTab);
 
   function handleClick(t: string,e:React.MouseEvent) {
     document.querySelector(".activeTab")?.classList.remove("activeTab");
@@ -14,7 +14,7 @@ function TopBar() {
     setTab(t)
   }
   return (
-    <div className="flex flex-col absolute top-0 w-full bg-[#0D0F10] lg:rounded-lg lg:mt-3 p-5">
+    <div className="flex flex-col top-0 w-full bg-[#0D0F10] lg:rounded-lg lg:mt-3 p-5">
       <div className="flex justify-between items-center">
         {project && (
           <div className="flex flex-col gap-2">

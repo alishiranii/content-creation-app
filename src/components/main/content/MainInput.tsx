@@ -4,39 +4,13 @@ import { CiMicrophoneOn } from "react-icons/ci";
 import { FiSend } from "react-icons/fi";
 import { clientSupabase } from "@/lib";
 import { useSearchParams } from "next/navigation";
+import { useTab } from "@/store/useStore";
 
 function MainInput() {
   const [text, setText] = useState("");
   const searchParams = useSearchParams();
   const supabase = clientSupabase;
-
-  // async function handleSubmit(e: FormEvent) {
-  //   e.preventDefault();
-  //   const updateResult = await supabase
-  //     .from("social")
-  //     .update({
-  //       messages: (existingMessages:any) => {
-  //         return existingMessages
-  //           ? existingMessages.concat({ message: text, role: "user" })
-  //           : [{ message: text, role: "user" }];
-  //       },
-  //     })
-  //     .eq("id", searchParams.get("projectid"));
-
-  //   console.log(updateResult.data);
-  //   if (updateResult.error) {
-  //     console.log(updateResult.error);
-  //   }
-  //   // const res = await fetch("/api/robo", {
-  //   //   method: "POST",
-  //   //   body: JSON.stringify({
-  //   //     text,
-  //   //   }),
-  //   //   headers: {
-  //   //     "content-type": "application/json",
-  //   //   },
-  //   // });
-  // }
+  const tab = useTab((state: any) => state.tab);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -78,9 +52,18 @@ function MainInput() {
     if (updateResult.error) {
       console.log(updateResult.error);
     }
+    const res = await fetch("/api/robo", {
+      method: "POST",
+      body: JSON.stringify({
+        text,
+      }),
+      headers: {
+        "content-type": "application/json",
+      },
+    });
   }
 
-  return (
+  return tab == "chat" && (
     <form
       onSubmit={handleSubmit}
       className="w-full relative p-3 flex items-center shadow-lg mt-auto">

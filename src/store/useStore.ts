@@ -9,3 +9,8 @@ export const useProject = create((set) => ({
     project: undefined,
     setProject: (p:any) => set(()=>({project:p}))
 }))
+
+export const useTab = create((set) => ({
+  tab: "chat",
+  setTab: (t: any) => set(() => ({ tab: t })),
+}));
