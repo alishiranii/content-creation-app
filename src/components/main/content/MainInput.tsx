@@ -14,7 +14,7 @@ function MainInput() {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-
+    setText("")
     // Check for project ID
     const projectID = searchParams.get("projectid");
     if (!projectID) {
@@ -47,15 +47,14 @@ function MainInput() {
       .from("social")
       .update({ messages: existingMessages })
       .eq("id", projectID);
-
-    console.log(updateResult.data);
     if (updateResult.error) {
       console.log(updateResult.error);
     }
-    const res = await fetch("/api/robo", {
+    const res = await fetch("/api/chat", {
       method: "POST",
       body: JSON.stringify({
         text,
+        projectID
       }),
       headers: {
         "content-type": "application/json",
