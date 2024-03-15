@@ -25,7 +25,18 @@ function Sidebar({ user }: { user: string | undefined }) {
   }
 
   useEffect(() => {
-    fetchList();
+    fetchList()
+    const subscription = supabase
+      .channel("social")
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT", // Listen only to UPDATEs
+          schema: "public",
+        },
+        (payload) => fetchList()
+      )
+      .subscribe();
   }, []);
 
   async function handleSignOut() {
@@ -45,7 +56,7 @@ function Sidebar({ user }: { user: string | undefined }) {
   );
   return (
     <div
-      className={`lg:w-1/4 ${
+      className={`lg:w-1/4  ${
         open
           ? "w-3/4 md:w-2/4 fixed lg:static m-0 bottom-0 top-0 h-full "
           : "hidden"
@@ -84,14 +95,14 @@ function Sidebar({ user }: { user: string | undefined }) {
         <div className="divider divider-neutral"></div>
         <div className="flex flex-col gap-3">
           <h3 className="uppercase text-[#686B6E] text-sm">Projects</h3>
-          <div className="flex gap-2 flex-col">
+          <div className="flex gap-2 flex-col ">
             <button
               onClick={handleClick}
               className="btn btn-ghost justify-start">
               <CiCirclePlus color="#686B6E" size={23} />{" "}
               <span className="text-[#686B6E]">Add new project</span>
             </button>{" "}
-            <div className="flex flex-col gap-2 max-h-96 overflow-y-scroll">
+            <div className="flex flex-col gap-2 max-h-96 overflow-y-scroll scrollbar-thin scrollbar-thumb-sky-700 scrollbar-track-transparent">
               {list ? (
                 list.map((l) => (
                   <ListItem

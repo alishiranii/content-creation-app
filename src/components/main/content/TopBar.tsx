@@ -8,10 +8,10 @@ function TopBar() {
   const project = useProject((state: any) => state.project);
   const setTab = useTab((state: any) => state.setTab);
 
-  function handleClick(t: string,e:React.MouseEvent) {
+  function handleClick(t: string, e: React.MouseEvent) {
     document.querySelector(".activeTab")?.classList.remove("activeTab");
     e.currentTarget?.classList.add("activeTab");
-    setTab(t)
+    setTab(t);
   }
   return (
     <div className="flex flex-col top-0 w-full bg-[#0D0F10] lg:rounded-lg lg:mt-3 p-5">
@@ -30,16 +30,16 @@ function TopBar() {
           <div role="tablist" className="tabs tabs-bordered lg:w-1/2">
             <a
               role="tab"
-              onClick={(e) => handleClick("chat",e)}
+              onClick={(e) => handleClick("chat", e)}
               className="tab activeTab text-white text-lg flex items-center gap-2">
-              Chat With AI
+              Chat
               <IoChatboxEllipsesOutline />
             </a>
             <a
               role="tab"
-              onClick={(e) => handleClick("create",e)}
+              onClick={(e) => handleClick("create", e)}
               className="tab text-white text-lg flex items-center gap-2">
-              Create Your Post
+              Create
               <IoCreateOutline />
             </a>
           </div>
