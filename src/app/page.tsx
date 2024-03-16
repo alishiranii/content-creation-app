@@ -8,6 +8,8 @@ import { serverSupabase } from "@/lib";
 import TopBar from "@/components/main/content/TopBar";
 import { useTab } from "@/store/useStore";
 import Messages from "@/components/main/content/Messages";
+import Instagram from "@/components/mockups/Instagram";
+import Create from "@/components/main/content/Create";
 
 export default async function Home() {
   const cookieStore = cookies();
@@ -27,7 +29,8 @@ export default async function Home() {
         <Sidebar user={session.user.email} />
         <div className="flex relative flex-col justify-between w-full">
           <TopBar />
-          <Messages/>
+          <Messages />
+          <Create/>
           <div className=" bottom-2 w-full">
             <MainInput />
           </div>

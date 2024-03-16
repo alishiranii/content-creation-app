@@ -3,6 +3,7 @@ import { useProject, useTab } from "@/store/useStore";
 import React, { useState } from "react";
 import SidebarBtn from "../sidebar/SidebarBtn";
 import { IoChatboxEllipsesOutline, IoCreateOutline } from "react-icons/io5";
+import { MdOutlinePhotoLibrary } from "react-icons/md";
 
 function TopBar() {
   const project = useProject((state: any) => state.project);
@@ -31,16 +32,23 @@ function TopBar() {
             <a
               role="tab"
               onClick={(e) => handleClick("chat", e)}
-              className="tab activeTab text-white text-lg flex items-center gap-2">
+              className="tab activeTab text-white text-lg flex flex-row-reverse items-center gap-2">
               Chat
               <IoChatboxEllipsesOutline />
             </a>
             <a
               role="tab"
               onClick={(e) => handleClick("create", e)}
-              className="tab text-white text-lg flex items-center gap-2">
+              className="tab text-white text-lg flex flex-row-reverse items-center gap-2">
               Create
               <IoCreateOutline />
+            </a>
+            <a
+              role="tab"
+              onClick={(e) => handleClick("library", e)}
+              className="tab text-white text-lg flex flex-row-reverse items-center gap-2">
+              Library
+              <MdOutlinePhotoLibrary />
             </a>
           </div>
         </>
