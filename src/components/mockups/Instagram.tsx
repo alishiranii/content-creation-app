@@ -14,7 +14,7 @@ function Instagram() {
           />
         </div>
 
-        <div className="col-span-4 text-sm font-semibold">pianizz</div>
+        <div contentEditable className="col-span-4 text-sm font-semibold">pianizz</div>
 
         <div className="">
           <svg
@@ -96,18 +96,18 @@ function Instagram() {
           </svg>
         </div>
 
-        <div className="text-sm font-semibold">11,552 Likes</div>
+        <div contentEditable className="text-sm font-semibold">11,552 Likes</div>
 
         <div className="text-sm">
-          <span className="font-semibold">gnfi</span> Saat ini Indonesia
+          Saat ini Indonesia
           memiliki 34 provinsi, jumlah tersebut diproyeksi bertambah seiring
           dengan adanya usulan 30 Daerah Otonomi Baru (DOB) khusus untuk
           provinsi, dan 9 diantaranya berada di Pulau Jawa.
         </div>
 
-        <div className="text-gray-500 text-sm">View all 877 comments</div>
+        <div contentEditable className="text-gray-500 text-sm">View all 877 comments</div>
 
-        <div className="text-gray-400 text-xs">2 HOURS AGO</div>
+        <div contentEditable className="text-gray-400 text-xs">2 HOURS AGO</div>
       </div>
 
       <footer></footer>
