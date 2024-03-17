@@ -8,6 +8,7 @@ import { TbFileDescription, TbPrompt } from "react-icons/tb";
 import { z } from "zod";
 import { toPng } from "html-to-image";
 import { useRef } from "react";
+import UploadBtn from "./UploadBtn";
 
 const createSchema = z.object({
   prompt: z
@@ -32,16 +33,16 @@ function Create() {
   function handleClick() {
     if (ref.current) {
       toPng(ref.current, { cacheBust: true })
-      .then((dataUrl) => {
-        const link = document.createElement("a");
-        link.download = "myImage.png";
-        link.href = dataUrl;
-        link.click();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  } else {
+        .then((dataUrl) => {
+          const link = document.createElement("a");
+          link.download = "myImage.png";
+          link.href = dataUrl;
+          link.click();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
       console.log("Element not found");
     }
   }
@@ -50,9 +51,8 @@ function Create() {
     tab == "create" && (
       <div>
         <div className="flex flex-col lg:flex-row justify-around items-center gap-5 p-5">
-          <button onClick={handleClick}>download</button>
           <form
-            className="flex flex-col max-w-lg w-full glass p-5 rounded-lg"
+            className="flex flex-col max-w-lg w-full glass p-5 rounded-lg gap-5"
             onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label className="label text-white">Describe your image.</label>
@@ -78,6 +78,12 @@ function Create() {
                 error={errors.description?.message}
               />
             </div>
+            <UploadBtn/>
+
+            <button type="submit" className="btn">Apply the Changes</button>
+            <button type="button" onClick={handleClick} className="btn btn-primary">
+              Download
+            </button>
           </form>
           <div ref={ref}>
             <Instagram />
