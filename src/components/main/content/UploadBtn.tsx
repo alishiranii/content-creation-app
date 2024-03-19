@@ -1,27 +1,32 @@
 "use client";
 import { clientSupabase } from "@/lib";
-import React from "react";
+import React, { FormEvent } from "react";
 
 function UploadBtn() {
   const supabase = clientSupabase;
-  async function handleChange(e) {
-      const avatarFile = e.target.files[0];
-      const { data: { identities } } = await supabase.auth.getUserIdentities();
-      console.log(identities);
+  async function handleChange(e:FormEvent<HTMLInputElement>) {
+    const files = (e.target as HTMLInputElement).files;
+    if (files && files.length > 0) {
+      const avatarFile = files[0];
       
     const { data, error } = await supabase.storage
       .from("images")
-      .upload("7353b679-7eb0-4395-b93a-25b7da0a6417", avatarFile, {
+      .upload(avatarFile.name, avatarFile, {
         cacheControl: "3600",
         upsert: false,
       });
-      console.log(data);
-      console.log(error);
-      
-      
+    } else {
+      console.error('No file selected');
+    }
   }
 
-  return <input type="file" onChange={handleChange} />;
+  return (
+    <input
+      type="file"
+      className="file-input file-input-bordered w-full max-w-xs"
+      onChange={handleChange}
+    />
+  );
 }
 
 export default UploadBtn;

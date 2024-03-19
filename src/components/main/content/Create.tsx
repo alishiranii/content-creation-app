@@ -7,7 +7,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { TbFileDescription, TbPrompt } from "react-icons/tb";
 import { z } from "zod";
 import { toPng } from "html-to-image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import UploadBtn from "./UploadBtn";
 
 const createSchema = z.object({
@@ -15,6 +15,10 @@ const createSchema = z.object({
     .string()
     .min(6, { message: "Prompt must be at least 6 chars" })
     .max(77, { message: "Prompt should be less than 77 chars" }),
+  description: z
+    .string()
+    .min(6, { message: "Description must be at least 6 chars" })
+    .max(111, { message: "Description should be less than 111 chars" }),
 });
 
 function Create() {
@@ -25,9 +29,24 @@ function Create() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(createSchema) });
+  const [img, setImg] = useState();
 
   const onSubmit: SubmitHandler<FieldValues> = async (d) => {
-    console.log(d);
+    const res=await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prompt: d.prompt,
+        width: 1080,
+        height:1344
+      }),
+    });
+    const data = await res.json();
+    console.log(data[0]);
+    
+    setImg(data[0])
   };
 
   function handleClick() {
@@ -86,7 +105,7 @@ function Create() {
             </button>
           </form>
           <div ref={ref}>
-            <Instagram />
+            <Instagram img={img}/>
           </div>
         </div>
       </div>
