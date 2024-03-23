@@ -7,6 +7,10 @@ const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
 });
 
+interface ReplicateOutput {
+  [index: number]: string;
+}
+
 
 export async function POST(request: NextRequest) { 
   const { prompt, width, height } = await request.json();
@@ -14,7 +18,7 @@ export async function POST(request: NextRequest) {
   const cookieStore = cookies();
   const supabase = serverSupabase(cookieStore);
     
-  const output = await replicate.run(
+  const output: ReplicateOutput = (await replicate.run(
     "lucataco/sdxl-lightning-4step:727e49a643e999d602a896c774a0658ffefea21465756a6ce24b7ea4165eba6a",
     {
       input: {
@@ -24,7 +28,23 @@ export async function POST(request: NextRequest) {
         seed: 2992471961,
       },
     }
-  );
+  )) as ReplicateOutput;
+
+
+  const response = await fetch(output[0]);
+  const blob = await response.blob();
+
+  const file = new File([blob], "your_file_name.png", {
+    type: "image/png",
+  });
+
+
+  const { data, error } = await supabase.storage
+    .from("images")
+    .upload("screen", file, {
+      cacheControl: "3600",
+      upsert: false,
+    });
 
   return NextResponse.json(output);
 }

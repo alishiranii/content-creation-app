@@ -2,7 +2,7 @@
 import { useTab } from '@/store/useStore';
 import React from 'react'
 
-function Instagram({img}) {
+function Instagram({img}:any) {
     const tab = useTab((state: any) => state.tab);
   return (
     <div className="bg-white border-gray-300 w-96 border">
@@ -14,7 +14,9 @@ function Instagram({img}) {
           />
         </div>
 
-        <div contentEditable className="col-span-4 text-sm font-semibold">pianizz</div>
+        <div contentEditable className="col-span-4 text-sm font-semibold">
+          pianizz
+        </div>
 
         <div className="">
           <svg
@@ -34,7 +36,7 @@ function Instagram({img}) {
       </header>
 
       <div>
-        <img src={img} />
+        <img src={img ? img : "https://via.placeholder.com/1080x1345"} />
       </div>
 
       <div className="flex flex-col p-4 gap-3">
@@ -96,18 +98,23 @@ function Instagram({img}) {
           </svg>
         </div>
 
-        <div contentEditable className="text-sm font-semibold">11,552 Likes</div>
-
-        <div className="text-sm">
-          Saat ini Indonesia
-          memiliki 34 provinsi, jumlah tersebut diproyeksi bertambah seiring
-          dengan adanya usulan 30 Daerah Otonomi Baru (DOB) khusus untuk
-          provinsi, dan 9 diantaranya berada di Pulau Jawa.
+        <div contentEditable className="text-sm font-semibold">
+          11,552 Likes
         </div>
 
-        <div contentEditable className="text-gray-500 text-sm">View all 877 comments</div>
+        <div className="text-sm">
+          Saat ini Indonesia memiliki 34 provinsi, jumlah tersebut diproyeksi
+          bertambah seiring dengan adanya usulan 30 Daerah Otonomi Baru (DOB)
+          khusus untuk provinsi, dan 9 diantaranya berada di Pulau Jawa.
+        </div>
 
-        <div contentEditable className="text-gray-400 text-xs">2 HOURS AGO</div>
+        <div contentEditable className="text-gray-500 text-sm">
+          View all 877 comments
+        </div>
+
+        <div contentEditable className="text-gray-400 text-xs">
+          2 HOURS AGO
+        </div>
       </div>
 
       <footer></footer>

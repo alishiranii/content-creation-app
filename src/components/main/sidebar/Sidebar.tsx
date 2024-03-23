@@ -20,6 +20,8 @@ function Sidebar({ user }: { user: string | undefined }) {
 
   const supabase = clientSupabase;
   async function fetchList() {
+    console.log("list is fetching");
+    
     const { data, error } = await supabase.from("social").select();
     setList(data);
   }

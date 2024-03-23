@@ -13,7 +13,7 @@ interface Message {
 function Messages() {
   const tab = useTab((state: any) => state.tab);
   const [messages, setMessages] = useState<Message[]>();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>();
   const supabase = clientSupabase;
   const searchParams = useSearchParams();
   const projectID = searchParams.get("projectid");
@@ -41,7 +41,9 @@ function Messages() {
   }
 
   useEffect(() => {
-    fetchMessages();
+    if (projectID) {
+      fetchMessages();
+    }
   }, [projectID]);
 
   useEffect(() => {
