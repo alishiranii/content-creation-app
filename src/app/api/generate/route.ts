@@ -29,19 +29,14 @@ export async function POST(request: NextRequest) {
       },
     }
   )) as ReplicateOutput;
-
-
+    
   const response = await fetch(output[0]);
-  const blob = await response.blob();
 
-  const file = new File([blob], "your_file_name.png", {
-    type: "image/png",
-  });
-
-
+  const imageBlob = await response.blob();
+  
   const { data, error } = await supabase.storage
     .from("images")
-    .upload("screen", file, {
+    .upload("salam", imageBlob, {
       cacheControl: "3600",
       upsert: false,
     });

@@ -2,7 +2,7 @@
 import { useTab } from '@/store/useStore';
 import React from 'react'
 
-function Instagram({img}:any) {
+function Instagram({image}:any) {
     const tab = useTab((state: any) => state.tab);
   return (
     <div className="bg-white border-gray-300 w-96 border">
@@ -36,7 +36,7 @@ function Instagram({img}:any) {
       </header>
 
       <div>
-        <img src={img ? img : "https://via.placeholder.com/1080x1345"} />
+        <img src={image ? image : "https://via.placeholder.com/1080x1345"} />
       </div>
 
       <div className="flex flex-col p-4 gap-3">

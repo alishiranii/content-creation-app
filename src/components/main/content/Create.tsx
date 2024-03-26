@@ -59,7 +59,7 @@ function Create() {
           link.click();
         })
         .catch((err) => {
-          console.log(err);
+          console.log("there is an error: ",err);
         });
     } else {
       console.log("Element not found");
@@ -105,7 +105,7 @@ function Create() {
             </button>
           </form>
           <div ref={ref}>
-            <Instagram img={img}/>
+            <Instagram image={img}/>
           </div>
         </div>
       </div>
