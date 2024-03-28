@@ -2,20 +2,20 @@
 import { useTab } from '@/store/useStore';
 import React from 'react'
 
-function Instagram({image}:any) {
+function Instagram({image,description,username,avatar}:any) {
     const tab = useTab((state: any) => state.tab);
   return (
     <div className="bg-white border-gray-300 w-96 border">
       <header className="grid grid-cols-6 items-center p-3 border-b border-b-gray-300">
         <div className="">
           <img
-            src="https://picsum.photos/50/50"
+            src={avatar ? avatar : "https://via.placeholder.com/50x50"}
             className="rounded-full w-10 h-10"
           />
         </div>
 
-        <div contentEditable className="col-span-4 text-sm font-semibold">
-          pianizz
+        <div className="col-span-4 text-sm font-semibold">
+          {username ? username : "user name"}
         </div>
 
         <div className="">
@@ -98,23 +98,15 @@ function Instagram({image}:any) {
           </svg>
         </div>
 
-        <div contentEditable className="text-sm font-semibold">
-          11,552 Likes
-        </div>
+        <div className="text-sm font-semibold">11,552 Likes</div>
 
         <div className="text-sm">
-          Saat ini Indonesia memiliki 34 provinsi, jumlah tersebut diproyeksi
-          bertambah seiring dengan adanya usulan 30 Daerah Otonomi Baru (DOB)
-          khusus untuk provinsi, dan 9 diantaranya berada di Pulau Jawa.
+          {description ? description : "fill out the description input."}
         </div>
 
-        <div contentEditable className="text-gray-500 text-sm">
-          View all 877 comments
-        </div>
+        <div className="text-gray-500 text-sm">View all 877 comments</div>
 
-        <div contentEditable className="text-gray-400 text-xs">
-          2 HOURS AGO
-        </div>
+        <div className="text-gray-400 text-xs">2 HOURS AGO</div>
       </div>
 
       <footer></footer>

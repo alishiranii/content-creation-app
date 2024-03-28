@@ -2,22 +2,18 @@
 import { clientSupabase } from "@/lib";
 import React, { FormEvent } from "react";
 
-function UploadBtn() {
+function UploadBtn({setAvatar}:any) {
   const supabase = clientSupabase;
   async function handleChange(e:FormEvent<HTMLInputElement>) {
     const files = (e.target as HTMLInputElement).files;
-    if (files && files.length > 0) {
-      const avatarFile = files[0];
-      
-    const { data, error } = await supabase.storage
-      .from("images")
-      .upload(avatarFile.name, avatarFile, {
-        cacheControl: "3600",
-        upsert: false,
-      });
-    } else {
-      console.error('No file selected');
-    }
+    const reader = new FileReader();
+    if (!files) return;
+    reader.readAsDataURL(files[0]);
+    reader.onload = (event) => {
+      setAvatar(event.target?.result);
+       // Set the image source as data URL // Append the image to the body
+    };
+    
   }
 
   return (
