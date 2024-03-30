@@ -24,7 +24,7 @@ function ListItem({ title, social, description,id }: ListItemProps) {
     document.querySelector(".listItem")?.classList.remove("listItem");
     e.currentTarget.classList.add("listItem");
     router.push(pathname + "?" + "projectid" + "=" + id)
-    setProject({title,description})
+    setProject({title,description,social})
     setOpen();
   }
 

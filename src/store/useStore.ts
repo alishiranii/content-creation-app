@@ -7,7 +7,7 @@ export const useSidebar=create((set)=>({
 
 export const useProject = create((set) => ({
     project: undefined,
-    setProject: (p:any) => set(()=>({project:p}))
+  setProject: (p: any) => set(() => ({ project: p })),
 }))
 
 export const useTab = create((set) => ({

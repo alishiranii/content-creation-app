@@ -2,7 +2,7 @@
 import { useTab } from '@/store/useStore';
 import React from 'react'
 
-function Instagram({image,description,username,avatar}:any) {
+function Instagram({image,description,username,avatar,isSubmiting}:any) {
     const tab = useTab((state: any) => state.tab);
   return (
     <div className="bg-white border-gray-300 w-96 border">
@@ -26,16 +26,16 @@ function Instagram({image,description,username,avatar}:any) {
             viewBox="0 0 24 24"
             stroke="currentColor">
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
             />
           </svg>
         </div>
       </header>
 
-      <div>
+      <div className={isSubmiting && "animate-pulse"}>
         <img src={image ? image : "https://via.placeholder.com/1080x1345"} />
       </div>
 
@@ -48,9 +48,9 @@ function Instagram({image,description,username,avatar}:any) {
             viewBox="0 0 24 24"
             stroke="currentColor">
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
             />
           </svg>
@@ -62,9 +62,9 @@ function Instagram({image,description,username,avatar}:any) {
             viewBox="0 0 24 24"
             stroke="currentColor">
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
             />
           </svg>
@@ -76,9 +76,9 @@ function Instagram({image,description,username,avatar}:any) {
             viewBox="0 0 24 24"
             stroke="currentColor">
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
             />
           </svg>
@@ -90,9 +90,9 @@ function Instagram({image,description,username,avatar}:any) {
             viewBox="0 0 24 24"
             stroke="currentColor">
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
             />
           </svg>

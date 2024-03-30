@@ -1,7 +1,7 @@
 "use client";
 import Input from "@/components/Input";
 import Instagram from "@/components/mockups/Instagram";
-import { useTab } from "@/store/useStore";
+import { useProject, useTab } from "@/store/useStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { TbFileDescription, TbPrompt, TbUserCircle } from "react-icons/tb";
@@ -9,6 +9,8 @@ import { z } from "zod";
 import { toPng } from "html-to-image";
 import { useEffect, useRef, useState } from "react";
 import UploadBtn from "./UploadBtn";
+import Twitter from "@/components/mockups/Twitter";
+import Youtube from "@/components/mockups/Youtube";
 
 const createSchema = z.object({
   prompt: z
@@ -19,6 +21,7 @@ const createSchema = z.object({
 
 function Create() {
   const tab = useTab((state: any) => state.tab);
+  const project = useProject((state: any) => state.project);
   const [description, setDescription] = useState<string>();
   const [username, setUsername] = useState<string>();
   const ref = useRef<HTMLDivElement>(null);
@@ -28,6 +31,7 @@ function Create() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(createSchema) });
+
   const [img, setImg] = useState();
 
   const onSubmit: SubmitHandler<FieldValues> = async (d) => {
@@ -38,8 +42,8 @@ function Create() {
       },
       body: JSON.stringify({
         prompt: d.prompt,
-        width: 1080,
-        height: 1344,
+        width: project.social== "Instagram" ? 1080 : 1280,
+        height: project.social== "Instagram" ? 1344 : 720,
       }),
     });
     const data = await res.json();
@@ -70,7 +74,7 @@ function Create() {
       <div>
         <div className="flex flex-col lg:flex-row justify-around items-center gap-5 p-5">
           <form
-            className="flex flex-col max-w-lg w-full glass p-5 rounded-lg gap-5"
+            className="flex flex-col w-full max-w-2xl glass p-5 rounded-lg gap-5"
             onSubmit={handleSubmit(onSubmit)}>
             <div className="flex items-end gap-3 w-full">
               <div className="w-3/4">
@@ -122,7 +126,7 @@ function Create() {
               </div>
             </div>
 
-            <button type="submit" className="btn">
+            <button type="submit" className="btn" disabled={isSubmitting}>
               Apply the Changes
             </button>
             <button
@@ -133,7 +137,33 @@ function Create() {
             </button>
           </form>
           <div ref={ref}>
-            <Instagram image={img} description={description} username={username} avatar={avatar} />
+            {project.social == "Instagram" && (
+              <Instagram
+                image={img}
+                description={description}
+                username={username}
+                avatar={avatar}
+                isSubmiting={isSubmitting}
+              />
+            )}
+            {project.social == "X" && (
+              <Twitter
+                image={img}
+                description={description}
+                username={username}
+                avatar={avatar}
+                isSubmiting={isSubmitting}
+              />
+            )}
+            {project.social == "Youtube" && (
+              <Youtube
+                image={img}
+                description={description}
+                username={username}
+                avatar={avatar}
+                isSubmiting={isSubmitting}
+              />
+            )}
           </div>
         </div>
       </div>
