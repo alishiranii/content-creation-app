@@ -11,10 +11,13 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.1",
     "@hookform/resolvers": "^3.3.2",
+    "@stripe/stripe-js": "^3.1.0",
     "@supabase/auth-helpers-nextjs": "^0.8.7",
     "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.39.0",
+    "@types/downloadjs": "^1.4.6",
     "ai": "^3.0.7",
+    "downloadjs": "^1.4.7",
     "html-to-image": "^1.11.11",
     "next": "14.0.4",
     "openai": "^4.28.4",

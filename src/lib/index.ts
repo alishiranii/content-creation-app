@@ -1,6 +1,21 @@
 import { createBrowserClient ,createServerClient, type CookieOptions } from "@supabase/ssr";
 import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
+import { loadStripe, Stripe } from '@stripe/stripe-js';
+
+let stripePromise: Promise<Stripe | null>;
+
+export const ClientStripe = () => {
+  if (!stripePromise) {
+    stripePromise = loadStripe(
+      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_LIVE ??
+        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ??
+        ''
+    );
+  }
+
+  return stripePromise;
+};
 
 export const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
 

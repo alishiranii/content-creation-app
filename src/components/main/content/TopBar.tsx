@@ -43,13 +43,6 @@ function TopBar() {
               Create
               <IoCreateOutline />
             </a>
-            <a
-              role="tab"
-              onClick={(e) => handleClick("library", e)}
-              className="tab text-white text-lg flex flex-row-reverse items-center gap-2">
-              Library
-              <MdOutlinePhotoLibrary />
-            </a>
           </div>
         </>
       )}

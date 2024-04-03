@@ -10,7 +10,6 @@ import { useTab } from "@/store/useStore";
 import Messages from "@/components/main/content/Messages";
 import Instagram from "@/components/mockups/Instagram";
 import Create from "@/components/main/content/Create";
-import Library from "@/components/main/content/Library";
 
 export default async function Home() {
   const cookieStore = cookies();
@@ -32,7 +31,6 @@ export default async function Home() {
           <TopBar />
           <Messages />
           <Create />
-          <Library/>
           <div className=" bottom-2 w-full">
             <MainInput />
           </div>

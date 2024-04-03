@@ -1,4 +1,5 @@
 import React from "react";
+import DownloadBtn from "./DownloadBtn";
 
 function Twitter({ image, description, username, avatar, isSubmiting }: any) {
   return (
@@ -29,10 +30,14 @@ function Twitter({ image, description, username, avatar, isSubmiting }: any) {
       <p className="text-black dark:text-white block text-xl leading-snug mt-3">
         {description ? description : "fill out the description input."}
       </p>
-      <img
-        className={`${isSubmiting && "animate-pulse"} mt-2 rounded-2xl border border-gray-100 dark:border-gray-700`}
-        src={image ? image : "https://via.placeholder.com/1280x720"}
-      />
+      <div className={`${isSubmiting && "animate-pulse"} mt-2 relative group`}>
+        <DownloadBtn image={image} />
+        <img
+          className={`rounded-2xl border border-gray-100 dark:border-gray-700`}
+          src={image ? image : "https://via.placeholder.com/1280x720"}
+        />
+      </div>
+
       <p className="text-gray-500 dark:text-gray-400 text-base py-1 my-0.5">
         10:05 AM · Dec 19, 2020
       </p>

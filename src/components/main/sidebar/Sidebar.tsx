@@ -10,6 +10,7 @@ import Modal from "./Modal";
 import ListItem from "./ListItem";
 import SearchMenu from "./SearchMenu";
 import { clientSupabase } from "@/lib";
+import Link from "next/link";
 
 function Sidebar({ user }: { user: string | undefined }) {
   const open = useSidebar((state: any) => state.open);
@@ -88,10 +89,10 @@ function Sidebar({ user }: { user: string | undefined }) {
                 <kbd className="kbd">k</kbd>
               </div>
             </button>
-            <button className="btn btn-ghost justify-start">
+            <Link href={"/billing"} className="btn btn-ghost justify-start">
               <CiCreditCard1 color="#686B6E" size={23} />{" "}
               <span className="text-white">Billing</span>
-            </button>
+            </Link>
           </div>
         </div>
         <div className="divider divider-neutral"></div>

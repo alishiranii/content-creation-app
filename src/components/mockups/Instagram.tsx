@@ -1,9 +1,12 @@
 "use client"
 import { useTab } from '@/store/useStore';
-import React from 'react'
+import React from 'react';
+import download from "downloadjs";
+import { MdOutlineCloudDownload } from 'react-icons/md';
+import DownloadBtn from './DownloadBtn';
 
 function Instagram({image,description,username,avatar,isSubmiting}:any) {
-    const tab = useTab((state: any) => state.tab);
+  const tab = useTab((state: any) => state.tab);
   return (
     <div className="bg-white border-gray-300 w-96 border">
       <header className="grid grid-cols-6 items-center p-3 border-b border-b-gray-300">
@@ -35,7 +38,8 @@ function Instagram({image,description,username,avatar,isSubmiting}:any) {
         </div>
       </header>
 
-      <div className={isSubmiting && "animate-pulse"}>
+      <div className={`relative group ${isSubmiting && "animate-pulse"}`}>
+        <DownloadBtn image={image}/>
         <img src={image ? image : "https://via.placeholder.com/1080x1345"} />
       </div>
 

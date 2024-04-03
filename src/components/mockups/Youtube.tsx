@@ -1,11 +1,13 @@
 import React from 'react'
+import DownloadBtn from './DownloadBtn';
 
 function Youtube({ image, description, username, avatar, isSubmiting }: any) {
   return (
     <div className="col-span-12 sm:col-span-6 md:col-span-3 bg-white p-4 rounded-lg">
       <div className="w-full flex flex-col">
         <div className="relative">
-          <div className={isSubmiting && 'animate-pulse'}>
+          <div className={`relative group ${isSubmiting && "animate-pulse"}`}>
+            <DownloadBtn image={image} />
             <img src={image ? image : "https://via.placeholder.com/1280x720"} />
           </div>
 
