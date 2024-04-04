@@ -1,16 +1,9 @@
 "use client"
+import { InputProps } from '@/types/components';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import React, { ReactElement, ReactNode } from 'react';
-import { FieldError, FieldErrorsImpl, FieldValues, Merge, UseFormRegister } from 'react-hook-form';
 
-interface InputProps{
-  Icon:ReactElement,
-  placeHolder:string,
-  inpType:string,
-  register:UseFormRegister<FieldValues>,
-  name:string,
-  error?:string | FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined,
-}
+
 
 function Input({Icon,placeHolder,inpType,register,name,error}:InputProps) {
   const [parent]=useAutoAnimate()

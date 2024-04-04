@@ -4,16 +4,21 @@ import React from 'react';
 import download from "downloadjs";
 import { MdOutlineCloudDownload } from 'react-icons/md';
 import DownloadBtn from './DownloadBtn';
+import Image from 'next/image';
+import { MockupsProps } from '@/types/components';
 
-function Instagram({image,description,username,avatar,isSubmiting}:any) {
-  const tab = useTab((state: any) => state.tab);
+function Instagram({image,description,username,avatar,isSubmiting}:MockupsProps) {
+  const tab = useTab((state) => state.tab);
   return (
     <div className="bg-white border-gray-300 w-96 border">
       <header className="grid grid-cols-6 items-center p-3 border-b border-b-gray-300">
         <div className="">
           <img
             src={avatar ? avatar : "https://via.placeholder.com/50x50"}
+            width={50}
+            height={50}
             className="rounded-full w-10 h-10"
+            alt='image'
           />
         </div>
 
@@ -40,7 +45,7 @@ function Instagram({image,description,username,avatar,isSubmiting}:any) {
 
       <div className={`relative group ${isSubmiting && "animate-pulse"}`}>
         <DownloadBtn image={image}/>
-        <img src={image ? image : "https://via.placeholder.com/1080x1345"} />
+        <img width={1080} height={1345} src={image ? image : "https://via.placeholder.com/1080x1345"} alt='image' />
       </div>
 
       <div className="flex flex-col p-4 gap-3">

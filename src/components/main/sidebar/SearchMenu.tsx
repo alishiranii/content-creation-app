@@ -2,8 +2,9 @@
 import "react-cmdk/dist/cmdk.css";
 import CommandPalette, { filterItems, getItemIndex, useHandleOpenCommandPalette } from "react-cmdk";
 import { useState } from "react";
+import { SearchMenuProps } from "@/types/components";
 
-const SearchMenu = ({isOpen,setIsOpen}:{isOpen:boolean,setIsOpen:React.Dispatch<React.SetStateAction<boolean>>}) => {
+const SearchMenu = ({isOpen,setIsOpen}:SearchMenuProps) => {
   const [page, setPage] = useState<"root" | "projects">("root");
   const [search, setSearch] = useState("");
 

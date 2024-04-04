@@ -10,16 +10,15 @@ function MainInput() {
   const [text, setText] = useState("");
   const searchParams = useSearchParams();
   const supabase = clientSupabase;
-  const tab = useTab((state: any) => state.tab);
+  const tab = useTab((state) => state.tab);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setText("")
-    // Check for project ID
     const projectID = searchParams.get("projectid");
     if (!projectID) {
       console.log("Missing project ID");
-      return; // Handle missing project ID
+      return;
     }
 
     const { data, error } = await supabase
@@ -29,15 +28,15 @@ function MainInput() {
 
     if (error) {
       console.log(error);
-      return; // Handle error
+      return;
     }
 
     if (!data || !data[0]) {
       console.log("No record found with that project ID");
-      return; // Handle no record found
+      return; 
     }
 
-    const existingMessages = data[0].messages || []; // Use empty array if messages is null
+    const existingMessages = data[0].messages || [];
 
     const newMessage = { message: text, role: "user" };
 

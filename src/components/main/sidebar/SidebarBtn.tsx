@@ -5,7 +5,7 @@ import { RiMenu3Fill } from "react-icons/ri";
 
 
 function SidebarBtn() {
-    const setOpen=useSidebar((state:any)=>state.setOpen);
+    const setOpen=useSidebar((state)=>state.setOpen);
   return (
     <button
       onClick={setOpen}

@@ -6,8 +6,8 @@ import { IoChatboxEllipsesOutline, IoCreateOutline } from "react-icons/io5";
 import { MdOutlinePhotoLibrary } from "react-icons/md";
 
 function TopBar() {
-  const project = useProject((state: any) => state.project);
-  const setTab = useTab((state: any) => state.setTab);
+  const project = useProject((state) => state.project);
+  const setTab = useTab((state) => state.setTab);
 
   function handleClick(t: string, e: React.MouseEvent) {
     document.querySelector(".activeTab")?.classList.remove("activeTab");

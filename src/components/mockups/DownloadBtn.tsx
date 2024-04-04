@@ -3,8 +3,8 @@ import download from 'downloadjs';
 import React from 'react'
 import { MdOutlineCloudDownload } from 'react-icons/md';
 
-function DownloadBtn({image}:{image:string}) {
-    function handleDownload(image: string) {
+function DownloadBtn({image}:{image:string | undefined}) {
+    function handleDownload(image: string | undefined) {
       if (image) download(image);
     }
   return (

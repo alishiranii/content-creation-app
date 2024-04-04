@@ -20,12 +20,12 @@ const createSchema = z.object({
 });
 
 function Create() {
-  const tab = useTab((state: any) => state.tab);
-  const project = useProject((state: any) => state.project);
+  const tab = useTab((state) => state.tab);
+  const project = useProject((state) => state.project);
   const [description, setDescription] = useState<string>();
   const [username, setUsername] = useState<string>();
   const ref = useRef<HTMLDivElement>(null);
-  const [avatar, setAvatar] = useState();
+  const [avatar, setAvatar] = useState<string | undefined>();
   const {
     register,
     handleSubmit,
@@ -42,8 +42,8 @@ function Create() {
       },
       body: JSON.stringify({
         prompt: d.prompt,
-        width: project.social== "Instagram" ? 1080 : 1280,
-        height: project.social== "Instagram" ? 1344 : 720,
+        width: project?.social== "Instagram" ? 1080 : 1280,
+        height: project?.social== "Instagram" ? 1344 : 720,
       }),
     });
     const data = await res.json();
@@ -137,7 +137,7 @@ function Create() {
             </button>
           </form>
           <div ref={ref}>
-            {project.social == "Instagram" && (
+            {project?.social == "Instagram" && (
               <Instagram
                 image={img}
                 description={description}
@@ -146,7 +146,7 @@ function Create() {
                 isSubmiting={isSubmitting}
               />
             )}
-            {project.social == "X" && (
+            {project?.social == "X" && (
               <Twitter
                 image={img}
                 description={description}
@@ -155,7 +155,7 @@ function Create() {
                 isSubmiting={isSubmitting}
               />
             )}
-            {project.social == "Youtube" && (
+            {project?.social == "Youtube" && (
               <Youtube
                 image={img}
                 description={description}

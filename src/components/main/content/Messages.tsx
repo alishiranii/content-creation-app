@@ -11,7 +11,7 @@ interface Message {
 }
 
 function Messages() {
-  const tab = useTab((state: any) => state.tab);
+  const tab = useTab((state) => state.tab);
   const [messages, setMessages] = useState<Message[]>();
   const [loading, setLoading] = useState<boolean>();
   const supabase = clientSupabase;

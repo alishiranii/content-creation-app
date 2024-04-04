@@ -1,19 +1,16 @@
 "use client";
 import { clientSupabase } from "@/lib";
-import React, { FormEvent } from "react";
+import React, { Dispatch, FormEvent, SetStateAction } from "react";
 
-function UploadBtn({setAvatar}:any) {
-  const supabase = clientSupabase;
-  async function handleChange(e:FormEvent<HTMLInputElement>) {
+function UploadBtn({ setAvatar }: {setAvatar:Dispatch<SetStateAction<string | undefined>>}) {
+  async function handleChange(e: FormEvent<HTMLInputElement>) {
     const files = (e.target as HTMLInputElement).files;
     const reader = new FileReader();
     if (!files) return;
     reader.readAsDataURL(files[0]);
     reader.onload = (event) => {
-      setAvatar(event.target?.result);
-       // Set the image source as data URL // Append the image to the body
+      if (typeof event.target?.result === "string") setAvatar(event.target?.result);
     };
-    
   }
 
   return (

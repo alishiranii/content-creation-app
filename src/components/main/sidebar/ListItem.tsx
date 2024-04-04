@@ -6,13 +6,7 @@ import Youtube from "@/assets/logos/youtube.svg"
 import X from "@/assets/logos/x.svg"
 import { useProject, useSidebar } from '@/store/useStore';
 import { usePathname, useRouter } from "next/navigation";
-
-interface ListItemProps{
-  title: string,
-  social: string,
-  description: string,
-  id:number
-}
+import { ListItemProps } from '@/types/components';
 
 function ListItem({ title, social, description,id }: ListItemProps) {
   const setOpen = useSidebar((state: any) => state.setOpen);

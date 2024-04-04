@@ -1,16 +1,17 @@
 import { create } from "zustand";
+import { SidebarState,ProjectState,TabState } from "@/types/store";
 
-export const useSidebar=create((set)=>({
-    open:false,
-    setOpen: () => set((state:any) => ({ open: !state.open }))
-}))
+export const useSidebar = create<SidebarState>((set) => ({
+  open: false,
+  setOpen: () => set((state) => ({ open: !state.open })),
+}));
 
-export const useProject = create((set) => ({
-    project: undefined,
-  setProject: (p: any) => set(() => ({ project: p })),
-}))
+export const useProject = create<ProjectState>((set) => ({
+  project: undefined,
+  setProject: (p) => set(() => ({ project: p })),
+}));
 
-export const useTab = create((set) => ({
+export const useTab = create<TabState>((set) => ({
   tab: "chat",
-  setTab: (t: any) => set(() => ({ tab: t })),
+  setTab: (t) => set(() => ({ tab: t })),
 }));

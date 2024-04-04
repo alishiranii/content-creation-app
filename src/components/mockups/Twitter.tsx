@@ -1,13 +1,18 @@
 import React from "react";
 import DownloadBtn from "./DownloadBtn";
+import Image from "next/image";
+import { MockupsProps } from "@/types/components";
 
-function Twitter({ image, description, username, avatar, isSubmiting }: any) {
+function Twitter({ image, description, username, avatar, isSubmiting }: MockupsProps) {
   return (
     <div className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-800 p-4 rounded-xl border max-w-xl">
       <div className="flex justify-between">
         <div className="flex items-center">
           <img
+            alt="image"
             src={avatar ? avatar : "https://via.placeholder.com/50x50"}
+            width={50}
+            height={50}
             className="rounded-full w-10 h-10"
           />
           <div className="ml-1.5 text-sm leading-tight">
@@ -33,8 +38,11 @@ function Twitter({ image, description, username, avatar, isSubmiting }: any) {
       <div className={`${isSubmiting && "animate-pulse"} mt-2 relative group`}>
         <DownloadBtn image={image} />
         <img
+          alt="image"
           className={`rounded-2xl border border-gray-100 dark:border-gray-700`}
           src={image ? image : "https://via.placeholder.com/1280x720"}
+          width={1280}
+          height={720}
         />
       </div>
 

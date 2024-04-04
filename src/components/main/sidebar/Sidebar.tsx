@@ -13,8 +13,8 @@ import { clientSupabase } from "@/lib";
 import Link from "next/link";
 
 function Sidebar({ user }: { user: string | undefined }) {
-  const open = useSidebar((state: any) => state.open);
-  const setOpen = useSidebar((state: any) => state.setOpen);
+  const open = useSidebar((state) => state.open);
+  const setOpen = useSidebar((state) => state.setOpen);
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [list, setList] = useState<any[] | null>();

@@ -1,6 +1,7 @@
+import { PricingCardProps } from "@/types/components";
 import React from "react";
 
-function PricingCard({ title, description, price, features }: any) {
+function PricingCard({ title, description, price, features }: PricingCardProps) {
   return (
     <div className="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
       <h3 className="mb-4 text-2xl font-semibold">{title}</h3>
@@ -12,7 +13,7 @@ function PricingCard({ title, description, price, features }: any) {
       </div>
 
       <ul role="list" className="mb-8 space-y-4 text-left">
-        {features?.map((f: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined, i: React.Key | null | undefined) => {
+        {features?.map((f:string, i:React.Key) => {
           return (
             <li key={i} className="flex items-center space-x-3">
               <svg
