@@ -40,6 +40,7 @@ function LoginForm() {
     } = await supabase.auth.getSession();
     if (session) {
       toast.success("You have been signed in succesfuly.");
+      await supabase.from("billing").insert([{}]);
       router.refresh();
     } else {
       console.error("there was an error in signing the user in!");

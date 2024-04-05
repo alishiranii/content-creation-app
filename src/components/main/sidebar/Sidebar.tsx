@@ -11,6 +11,7 @@ import ListItem from "./ListItem";
 import SearchMenu from "./SearchMenu";
 import { clientSupabase } from "@/lib";
 import Link from "next/link";
+import { BsCoin } from "react-icons/bs";
 
 function Sidebar({ user }: { user: string | undefined }) {
   const open = useSidebar((state) => state.open);
@@ -18,13 +19,26 @@ function Sidebar({ user }: { user: string | undefined }) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [list, setList] = useState<any[] | null>();
+  const [coins, setCoins] = useState();
 
   const supabase = clientSupabase;
   async function fetchList() {
-    console.log("list is fetching");
-    
     const { data, error } = await supabase.from("social").select();
     setList(data);
+  }
+
+  async function fetchCoins() {
+    const {
+      data: d,
+    } = await supabase.auth.getUserIdentities();
+    const userId = d?.identities[0].user_id;
+    
+    const {data,error}= await supabase.from("billing")
+        .select("coins")
+      .eq("user", userId);
+    
+    setCoins(data?.[0].coins);
+    
   }
 
   useEffect(() => {
@@ -41,6 +55,21 @@ function Sidebar({ user }: { user: string | undefined }) {
       )
       .subscribe();
   }, []);
+
+  useEffect(() => {
+    fetchCoins();
+    const subscription = supabase
+      .channel("billing")
+      .on(
+        "postgres_changes",
+        {
+          event: "UPDATE", // Listen only to UPDATEs
+          schema: "public",
+        },
+        (payload) => fetchCoins()
+      )
+      .subscribe();
+  },[])
 
   async function handleSignOut() {
     await supabase.auth.signOut();
@@ -134,7 +163,9 @@ function Sidebar({ user }: { user: string | undefined }) {
             </div>
             <div className="flex flex-col gap-2 overflow-hidden">
               <h3 className="text-white text-sm">{user}</h3>
-              <p className="text-green-600 text-xs">Premium</p>
+              <p className="text-green-600 text-xs flex items-center gap-1">
+                {coins ? coins : "loading..."} <BsCoin />
+              </p>
             </div>
             <button
               onClick={handleSignOut}

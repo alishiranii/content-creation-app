@@ -44,6 +44,7 @@ function SignupForm() {
     const {data:{session}}=await supabase.auth.getSession();
     if(session){
       toast.success('Your account has been created.')
+      await supabase.from("billing").insert([{}]);
       router.refresh();
     }else{
       console.error("there was an error in signing the user in!");

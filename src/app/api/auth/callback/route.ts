@@ -13,6 +13,7 @@ export async function GET(request: Request) {
     const supabase = serverSupabase(cookieStore);
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
+      await supabase.from("billing").insert([{}]);
       return NextResponse.redirect(`${origin}${next}`)
     }
   }
