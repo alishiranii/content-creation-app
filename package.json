@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ducanh2912/next-pwa": "^10.2.6",
     "@formkit/auto-animate": "^0.8.1",
     "@hookform/resolvers": "^3.3.2",
     "@stripe/stripe-js": "^3.1.0",

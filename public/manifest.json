@@ -1,0 +1,31 @@
+{
+  "name": "content creation app",
+  "description": "content creation app",
+  "screenshots": [
+    {
+      "src": "/screenshot.png",
+      "sizes": "576x502",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "content creation"
+    },
+    {
+      "src": "/screenshot.png",
+      "sizes": "576x502",
+      "type": "image/png",
+      "label": "content creation"
+    }
+  ],
+  "short_name": "CCA",
+  "theme_color": "#00ff00",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "any",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" ,"purpose":"maskable"},
+    { "src": "/icon-256.png", "type": "image/png", "sizes": "256x256" },
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}

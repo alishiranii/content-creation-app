@@ -73,12 +73,8 @@ function MainInput() {
         autoFocus
       />
       <button
-        type="button"
-        className="absolute left-4 btn btn-ghost btn-circle text-2xl text-[#686B6E]">
-        <CiMicrophoneOn />
-      </button>
-      <button
         type="submit"
+        aria-label="submit button"
         className="absolute right-8 btn btn-ghost text-2xl text-white">
         <FiSend />
       </button>

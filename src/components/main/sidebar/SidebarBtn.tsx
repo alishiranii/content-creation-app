@@ -9,6 +9,7 @@ function SidebarBtn() {
   return (
     <button
       onClick={setOpen}
+      aria-label='sidebar button'
       className="btn btn-ghost text-3xl text-white ml-auto btn-circle">
       <RiMenu3Fill />
     </button>
