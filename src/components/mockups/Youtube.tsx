@@ -2,6 +2,7 @@ import React from "react";
 import DownloadBtn from "./DownloadBtn";
 import Image from "next/image";
 import { MockupsProps } from "@/types/components";
+import EditBtn from "./EditBtn";
 
 function Youtube({
   image,
@@ -16,6 +17,7 @@ function Youtube({
         <div className="relative">
           <div className={`relative group ${isSubmiting && "animate-pulse"}`}>
             <DownloadBtn image={image} />
+            <EditBtn image={image} />
             <img
               alt="image"
               src={image ? image : "https://via.placeholder.com/1280x720"}

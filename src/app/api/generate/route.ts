@@ -25,6 +25,8 @@ export async function POST(request: NextRequest) {
     }
   )) as ReplicateOutput;
     
+  console.log(output);
+  
 
   return NextResponse.json(output);
 }

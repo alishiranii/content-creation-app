@@ -2,6 +2,7 @@ import React from "react";
 import DownloadBtn from "./DownloadBtn";
 import Image from "next/image";
 import { MockupsProps } from "@/types/components";
+import EditBtn from "./EditBtn";
 
 function Twitter({ image, description, username, avatar, isSubmiting }: MockupsProps) {
   return (
@@ -37,6 +38,7 @@ function Twitter({ image, description, username, avatar, isSubmiting }: MockupsP
       </p>
       <div className={`${isSubmiting && "animate-pulse"} mt-2 relative group`}>
         <DownloadBtn image={image} />
+        <EditBtn image={image} />
         <img
           alt="image"
           className={`rounded-2xl border border-gray-100 dark:border-gray-700`}

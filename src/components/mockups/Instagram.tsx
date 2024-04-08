@@ -6,6 +6,7 @@ import { MdOutlineCloudDownload } from 'react-icons/md';
 import DownloadBtn from './DownloadBtn';
 import Image from 'next/image';
 import { MockupsProps } from '@/types/components';
+import EditBtn from './EditBtn';
 
 function Instagram({image,description,username,avatar,isSubmiting}:MockupsProps) {
   const tab = useTab((state) => state.tab);
@@ -18,7 +19,7 @@ function Instagram({image,description,username,avatar,isSubmiting}:MockupsProps)
             width={50}
             height={50}
             className="rounded-full w-10 h-10"
-            alt='image'
+            alt="image"
           />
         </div>
 
@@ -44,8 +45,14 @@ function Instagram({image,description,username,avatar,isSubmiting}:MockupsProps)
       </header>
 
       <div className={`relative group ${isSubmiting && "animate-pulse"}`}>
-        <DownloadBtn image={image}/>
-        <img width={1080} height={1345} src={image ? image : "https://via.placeholder.com/1080x1345"} alt='image' />
+        <DownloadBtn image={image} />
+        <EditBtn image={image} />
+        <img
+          width={1080}
+          height={1345}
+          src={image ? image : "https://via.placeholder.com/1080x1345"}
+          alt="image"
+        />
       </div>
 
       <div className="flex flex-col p-4 gap-3">

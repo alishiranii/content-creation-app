@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'sonner'
 import type { Metadata, Viewport } from "next";
+import { registerLicense } from '@syncfusion/ej2-base';
 
 const APP_NAME = "Content Creation app";
 const APP_DEFAULT_TITLE = "Contnent Creation app";
@@ -49,6 +50,10 @@ export const viewport: Viewport = {
 
 
 const inter = Inter({ subsets: ['latin'] })
+
+registerLicense(
+  "ORg4AjUWIQA/Gnt2UFhhQlJBfVpdWnxLflFyVWRTfFx6dlJWACFaRnZdRl1nSXlSf0FlWnlZeHZX"
+);
 
 export default function RootLayout({
   children,
